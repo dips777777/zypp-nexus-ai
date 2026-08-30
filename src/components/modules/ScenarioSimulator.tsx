@@ -357,7 +357,7 @@ export function ScenarioSimulator() {
                   </thead>
                   <tbody>
                     {history.map((entry, idx) => (
-                      <tr key={idx} className="border-b border-gray-100 hover:bg-gray-50:bg-gray-700/50 transition-colors">
+                      <tr key={idx} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
                         <td className="py-2 px-3 text-gray-500">{entry.timestamp.toLocaleTimeString()}</td>
                         <td className="py-2 px-3 text-right">{entry.params.riderCount}</td>
                         <td className="py-2 px-3 text-right">₹{(entry.params.maintenanceBudget/1000).toFixed(0)}K</td>

@@ -95,6 +95,7 @@ export function Badge({ children, variant = 'default', className = '' }: BadgePr
   );
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 interface TableProps {
   columns: Array<{ key: string; header: string; render?: (row: any) => ReactNode; className?: string }>;
   data: any[];
@@ -128,7 +129,7 @@ export function Table({ columns, data, className = '', emptyMessage = 'No data a
           {data.map((row, rowIndex) => (
             <tr 
               key={row.id || rowIndex} 
-              className={`${onRowClick ? 'cursor-pointer hover:bg-gray-50:bg-gray-700/30' : ''} transition-colors`}
+              className={`${onRowClick ? 'cursor-pointer hover:bg-gray-50' : ''} transition-colors`}
               onClick={() => onRowClick?.(row)}
             >
               {columns.map(col => (

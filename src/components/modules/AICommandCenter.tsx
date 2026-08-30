@@ -9,7 +9,6 @@ import type { Hub, Alert } from '@/types';
 export function AICommandCenter() {
   const [hubs, setHubs] = useState<Hub[]>([]);
   const [alerts, setAlerts] = useState<Alert[]>([]);
-  const [selectedHub, setSelectedHub] = useState<string | null>(null);
   const [expandedHubs, setExpandedHubs] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
   const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
@@ -116,7 +115,7 @@ export function AICommandCenter() {
             <div key={hub.id} className="border border-gray-200/60 rounded-xl overflow-hidden hover:shadow-md transition-all duration-300 bg-white">
               <button
                 onClick={() => toggleHub(hub.id)}
-                className="w-full px-4 py-3.5 flex items-center justify-between hover:bg-gray-50/80:bg-gray-700/30 transition-colors"
+                className="w-full px-4 py-3.5 flex items-center justify-between hover:bg-gray-50 transition-colors"
               >
                 <div className="flex items-center gap-3.5">
                   <div className="relative">
@@ -159,15 +158,15 @@ export function AICommandCenter() {
                       <div className="overflow-x-auto">
                         <Table
                           columns={[
-                            { key: 'type', header: 'Type', render: (a: Alert) => (
+                            { key: 'type', header: 'Type', render: (a: any) => (
                               <span className="flex items-center gap-2">{getAlertIcon(a.type)} {a.type.replace('_', ' ')}</span>
                             )},
                             { key: 'message', header: 'Message' },
-                            { key: 'severity', header: 'Severity', render: (a: Alert) => <Badge variant={a.severity === 'critical' ? 'danger' : a.severity === 'warning' ? 'warning' : 'info'}>{a.severity}</Badge> },
-                            { key: 'timestamp', header: 'Time', render: (a: Alert) => new Date(a.timestamp).toLocaleTimeString() },
-                            { key: 'action', header: 'Action', render: (a: Alert) => a.suggestedAction || '-' },
+                            { key: 'severity', header: 'Severity', render: (a: any) => <Badge variant={a.severity === 'critical' ? 'danger' : a.severity === 'warning' ? 'warning' : 'info'}>{a.severity}</Badge> },
+                            { key: 'timestamp', header: 'Time', render: (a: any) => new Date(a.timestamp).toLocaleTimeString() },
+                            { key: 'action', header: 'Action', render: (a: any) => a.suggestedAction || '-' },
                           ]}
-                          data={hubAlerts}
+                          data={hubAlerts as any}
                           className="text-sm"
                         />
                       </div>

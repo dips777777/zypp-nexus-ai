@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Sunrise, AlertTriangle, TrendingUp, Target, Lightbulb, Shield, DollarSign, Truck, Users, Battery, Clock, RefreshCw, Copy, CheckCircle } from 'lucide-react';
 import { Card, Badge, MetricCard } from '@/components/ui/Card';
 import { api, generateCEONarrative, mockHubs, mockVehicles } from '@/lib/mock-data';
@@ -29,6 +29,22 @@ export function AICEOBriefing() {
   const [lastGenerated, setLastGenerated] = useState<Date | null>(null);
   const [copied, setCopied] = useState(false);
 
+  const generateBriefing = useCallback(async (hubsData: Hub[], vehiclesData: Vehicle[]) => {
+    setGenerating(true);
+    try {
+      const briefing = await api.generateCEONarrative();
+      setNarrative(briefing);
+      setLastGenerated(new Date());
+    } catch (error) {
+      console.error('Failed to generate briefing:', error);
+      const briefing = generateCEONarrative(hubsData, vehiclesData);
+      setNarrative(briefing);
+      setLastGenerated(new Date());
+    } finally {
+      setGenerating(false);
+    }
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -49,23 +65,7 @@ export function AICEOBriefing() {
       }
     };
     fetchData();
-  }, []);
-
-  const generateBriefing = async (hubsData: Hub[], vehiclesData: Vehicle[]) => {
-    setGenerating(true);
-    try {
-      const briefing = await api.generateCEONarrative();
-      setNarrative(briefing);
-      setLastGenerated(new Date());
-    } catch (error) {
-      console.error('Failed to generate briefing:', error);
-      const briefing = generateCEONarrative(hubsData, vehiclesData);
-      setNarrative(briefing);
-      setLastGenerated(new Date());
-    } finally {
-      setGenerating(false);
-    }
-  };
+  }, [generateBriefing]);
 
   const handleRegenerate = () => {
     generateBriefing(hubs, vehicles);

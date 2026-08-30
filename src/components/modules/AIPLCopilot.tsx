@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { TrendingUp, TrendingDown, DollarSign, CreditCard, Wallet, Calculator, Lightbulb, AlertTriangle, Target, BarChart2 } from 'lucide-react';
-import { Card, Badge, MetricCard, ProgressBar, Table } from '@/components/ui/Card';
+import { useState, useEffect, useCallback } from 'react';
+import { DollarSign, CreditCard, Wallet, Calculator, Lightbulb, Target, BarChart2 } from 'lucide-react';
+import { Card, MetricCard, Table } from '@/components/ui/Card';
 import { api } from '@/lib/mock-data';
 import type { Financials, Hub } from '@/types';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Line, PieChart, Pie, Cell, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
 
 export function AIPLCopilot() {
   const [hubs, setHubs] = useState<Hub[]>([]);
@@ -15,28 +15,7 @@ export function AIPLCopilot() {
   const [loading, setLoading] = useState(true);
   const [aiInsights, setAiInsights] = useState<string[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const hubsData = await api.getHubs();
-        setHubs(hubsData);
-        
-        const finData: Record<string, Financials> = {};
-        for (const hub of hubsData) {
-          finData[hub.id] = await api.getFinancials(hub.id, period);
-        }
-        setFinancials(finData);
-        generateInsights(hubsData, finData);
-      } catch (error) {
-        console.error('Failed to fetch financial data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, [period]);
-
-  const generateInsights = (hubsData: Hub[], finData: Record<string, Financials>) => {
+  const generateInsights = useCallback((hubsData: Hub[], finData: Record<string, Financials>) => {
     const insights: string[] = [];
     const selectedFin = finData[selectedHub];
     const selectedHubData = hubsData.find(h => h.id === selectedHub);
@@ -60,7 +39,7 @@ export function AIPLCopilot() {
     
     const maintenancePct = selectedFin.costs.maintenance / selectedFin.costs.total * 100;
     if (maintenancePct > 12) {
-      insights.push(`🔧 Maintenance at ${maintenancePct.toFixed(0)}% of costs. Predictive maintenance could reduce this by 20-30% by catching issues before breakdowns.`);
+      insights.push(`� Maintenance at ${maintenancePct.toFixed(0)}% of costs. Predictive maintenance could reduce this by 20-30% by catching issues before breakdowns.`);
     }
     
     const utilization = selectedHubData.todayDeliveries / selectedHubData.riderCount;
@@ -69,7 +48,28 @@ export function AIPLCopilot() {
     }
     
     setAiInsights(insights);
-  };
+  }, [selectedHub]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const hubsData = await api.getHubs();
+        setHubs(hubsData);
+        
+        const finData: Record<string, Financials> = {};
+        for (const hub of hubsData) {
+          finData[hub.id] = await api.getFinancials(hub.id, period);
+        }
+        setFinancials(finData);
+        generateInsights(hubsData, finData);
+      } catch (error) {
+        console.error('Failed to fetch financial data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [period, generateInsights]);
 
   const hubFin = financials[selectedHub];
   const hubData = hubs.find(h => h.id === selectedHub);
@@ -114,7 +114,7 @@ export function AIPLCopilot() {
             <button
               key={p}
               onClick={() => setPeriod(p)}
-              className={`px-3 py-1.5 text-sm rounded-xl shadow-sm transition-all ${period === p ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md hover:shadow-lg' : 'bg-gray-100 text-gray-700 hover:bg-gray-200:bg-gray-600'}`}
+              className={`px-3 py-1.5 text-sm rounded-xl shadow-sm transition-all ${period === p ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md hover:shadow-lg' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
             >
               {p.charAt(0).toUpperCase() + p.slice(1)}
             </button>
@@ -155,7 +155,7 @@ export function AIPLCopilot() {
                   <Cell key={`cell-${index}`} fill={COLORS[index]} />
                 ))}
               </Pie>
-              <Tooltip formatter={(value: any, name: any) => [`₹${(value / 100000).toFixed(1)}L`, name]} />
+              <Tooltip formatter={(value: any, name: any) => [`₹${(Number(value) / 100000).toFixed(1)}L`, name]} />
               <Legend />
             </PieChart>
           </ResponsiveContainer>
@@ -186,7 +186,7 @@ export function AIPLCopilot() {
                   <Cell key={`cell-${index}`} fill={COLORS[index]} />
                 ))}
               </Pie>
-              <Tooltip formatter={(value: any, name: any) => [`₹${(value / 100000).toFixed(1)}L`, name]} />
+              <Tooltip formatter={(value: any, name: any) => [`₹${(Number(value) / 100000).toFixed(1)}L`, name]} />
               <Legend />
             </PieChart>
           </ResponsiveContainer>
@@ -227,7 +227,7 @@ export function AIPLCopilot() {
               <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
               <XAxis type="number" tickFormatter={v => `₹${(v/100000).toFixed(1)}L`} tick={{ fontSize: 10 }} />
               <YAxis dataKey="name" type="category" tick={{ fontSize: 10 }} width={140} />
-              <Tooltip formatter={(value: any, name: any) => [`₹${(value / 100000).toFixed(1)}L`, name]} />
+              <Tooltip formatter={(value: any, name: any) => [`₹${(Number(value) / 100000).toFixed(1)}L`, name]} />
               <Bar dataKey="value" fill="#ef4444" radius={[0, 4, 4, 0]}>
                 {costData.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index]} />
@@ -252,10 +252,10 @@ export function AIPLCopilot() {
               <Table
                 columns={[
                   { key: 'name', header: 'Item', className: 'text-xs font-semibold text-gray-500 uppercase tracking-wider' },
-                  { key: 'value', header: 'Amount', className: 'text-right text-xs font-semibold text-gray-500 uppercase tracking-wider', render: (v: number) => <span className="text-emerald-600 font-medium">₹{(v/100000).toFixed(1)}L</span> },
-                  { key: 'pct', header: '% of Total', className: 'text-right text-xs font-semibold text-gray-500 uppercase tracking-wider', render: (v: number) => `${(v / hubFin.revenue.total * 100).toFixed(1)}%` },
+                  { key: 'value', header: 'Amount', className: 'text-right text-xs font-semibold text-gray-500 uppercase tracking-wider', render: (v: any) => <span className="text-emerald-600 font-medium">₹{(v/100000).toFixed(1)}L</span> },
+                   { key: 'pct', header: '% of Total', className: 'text-right text-xs font-semibold text-gray-500 uppercase tracking-wider', render: (v: any) => `${(v / hubFin.revenue.total * 100).toFixed(1)}%` },
                 ]}
-                data={revenueData.map(d => ({ name: d.name, value: d.value, pct: d.value }))}
+                data={revenueData.map(d => ({ name: d.name, value: d.value, pct: d.value })) as any}
                 className="text-sm"
               />
             </div>
@@ -266,10 +266,10 @@ export function AIPLCopilot() {
               <Table
                 columns={[
                   { key: 'name', header: 'Item', className: 'text-xs font-semibold text-gray-500 uppercase tracking-wider' },
-                  { key: 'value', header: 'Amount', className: 'text-right text-xs font-semibold text-gray-500 uppercase tracking-wider', render: (v: number) => <span className="text-red-600 font-medium">₹{(v/100000).toFixed(1)}L</span> },
-                  { key: 'pct', header: '% of Total', className: 'text-right text-xs font-semibold text-gray-500 uppercase tracking-wider', render: (v: number) => `${(v / hubFin.costs.total * 100).toFixed(1)}%` },
+                  { key: 'value', header: 'Amount', className: 'text-right text-xs font-semibold text-gray-500 uppercase tracking-wider', render: (v: any) => <span className="text-red-600 font-medium">₹{(v/100000).toFixed(1)}L</span> },
+                   { key: 'pct', header: '% of Total', className: 'text-right text-xs font-semibold text-gray-500 uppercase tracking-wider', render: (v: any) => `${(v / hubFin.costs.total * 100).toFixed(1)}%` },
                 ]}
-                data={costData.map(d => ({ name: d.name, value: d.value, pct: d.value }))}
+                data={costData.map(d => ({ name: d.name, value: d.value, pct: d.value })) as any}
                 className="text-sm"
               />
             </div>

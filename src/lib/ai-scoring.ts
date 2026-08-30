@@ -2,7 +2,7 @@
 // These are architecturally real - replace mock data with real API calls
 // All formulas documented for transparency and tuning
 
-import type { Vehicle, Hub, DemandForecast, CityExpansionScore, AgentActivity } from '@/types';
+import type { Vehicle, Hub, DemandForecast, CityExpansionScore } from '@/types';
 
 /**
  * VEHICLE HEALTH SCORE
@@ -40,7 +40,7 @@ export function calculateVehicleHealthScore(vehicle: Vehicle): number {
  * PREDICTED FAILURE RISK
  * Based on health score thresholds and specific failure modes
  */
-export function getPredictedFailureRisk(healthScore: number, vehicle: Vehicle): 'low' | 'medium' | 'high' | 'critical' {
+export function getPredictedFailureRisk(healthScore: number): 'low' | 'medium' | 'high' | 'critical' {
   if (healthScore >= 80) return 'low';
   if (healthScore >= 60) return 'medium';
   if (healthScore >= 40) return 'high';
@@ -363,13 +363,11 @@ export function runScenario(params: {
     riderCount,
     maintenanceBudget,
     autonomyLevel,
-    chargingStations,
     vehicleUtilizationTarget,
   } = params;
   
   // Baseline (current state)
   const BASE_FLEET = 150;
-  const BASE_RIDERS = 120;
   const BASE_REVENUE_PER_DELIVERY = 55;
   const BASE_DELIVERIES_PER_RIDER_DAY = 7.5;
   const WORKING_DAYS = 26;

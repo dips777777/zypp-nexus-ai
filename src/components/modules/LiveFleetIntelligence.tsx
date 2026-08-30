@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Battery, Truck, MapPin, AlertCircle, CheckCircle, Loader2, Filter, Search } from 'lucide-react';
 import { Card, Badge, Table, MetricCard } from '@/components/ui/Card';
 import { api } from '@/lib/mock-data';
@@ -16,7 +16,6 @@ const STATUS_CONFIG = {
 
 export function LiveFleetIntelligence() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
-  const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>([]);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [hubFilter, setHubFilter] = useState<string>('all');
@@ -30,7 +29,6 @@ export function LiveFleetIntelligence() {
       try {
         const data = await api.getVehicles();
         setVehicles(data);
-        setFilteredVehicles(data);
         setLastUpdated(new Date());
       } catch (error) {
         console.error('Failed to fetch fleet data:', error);
@@ -44,7 +42,7 @@ export function LiveFleetIntelligence() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
+  const filteredVehicles = useMemo(() => {
     let result = [...vehicles];
     
     if (statusFilter !== 'all') {
@@ -70,7 +68,7 @@ export function LiveFleetIntelligence() {
       return 0;
     });
     
-    setFilteredVehicles(result);
+    return result;
   }, [vehicles, statusFilter, hubFilter, searchQuery, sortConfig]);
 
   const getBatteryColor = (battery: number) => {
@@ -151,15 +149,15 @@ export function LiveFleetIntelligence() {
           columns={[
             { key: 'registrationNumber', header: 'Registration', className: 'font-mono font-medium' },
             { key: 'model', header: 'Model' },
-            { key: 'hubId', header: 'Hub', render: (v: Vehicle) => `Hub ${v.hubId.replace('hub_', '')}` },
+            { key: 'hubId', header: 'Hub', render: (v: any) => `Hub ${v.hubId.replace('hub_', '')}` },
             { 
               key: 'status', 
               header: 'Status', 
-              render: (v: Vehicle) => {
-                const config = STATUS_CONFIG[v.status];
+              render: (v: any) => {
+                const config = (STATUS_CONFIG as any)[v.status];
                 const Icon = config.icon;
                 return (
-                  <Badge variant={config.color as any} className="flex items-center gap-1">
+                  <Badge variant={config.color as 'default' | 'success' | 'warning' | 'danger' | 'info'} className="flex items-center gap-1">
                     <Icon className="w-3 h-3" />
                     {config.label}
                   </Badge>
@@ -170,7 +168,7 @@ export function LiveFleetIntelligence() {
               key: 'currentBattery', 
               header: 'Battery', 
               className: 'text-right',
-              render: (v: Vehicle) => (
+              render: (v: any) => (
                 <span className={`font-semibold ${getBatteryColor(v.currentBattery)}`}>{v.currentBattery}%</span>
               )
             },
@@ -178,7 +176,7 @@ export function LiveFleetIntelligence() {
               key: 'healthScore', 
               header: 'Health', 
               className: 'text-right',
-              render: (v: Vehicle) => (
+              render: (v: any) => (
                 <Badge variant={v.healthScore >= 80 ? 'success' : v.healthScore >= 60 ? 'warning' : 'danger'}>
                   {v.healthScore}
                 </Badge>
@@ -187,7 +185,7 @@ export function LiveFleetIntelligence() {
             { 
               key: 'predictedFailureRisk', 
               header: 'Risk', 
-              render: (v: Vehicle) => (
+              render: (v: any) => (
                 <Badge variant={
                   v.predictedFailureRisk === 'critical' ? 'danger' :
                   v.predictedFailureRisk === 'high' ? 'warning' :
@@ -201,7 +199,7 @@ export function LiveFleetIntelligence() {
               key: 'totalDistance', 
               header: 'Distance', 
               className: 'text-right',
-              render: (v: Vehicle) => `${v.totalDistance.toLocaleString()} km`
+              render: (v: any) => `${v.totalDistance.toLocaleString()} km`
             },
             { 
               key: 'repairCount', 
@@ -211,11 +209,11 @@ export function LiveFleetIntelligence() {
             { 
               key: 'lastServiceDate', 
               header: 'Last Service', 
-              render: (v: Vehicle) => new Date(v.lastServiceDate).toLocaleDateString()
+              render: (v: any) => new Date(v.lastServiceDate).toLocaleDateString()
             },
           ]}
-          data={filteredVehicles}
-          onRowClick={setSelectedVehicle}
+          data={filteredVehicles as any}
+          onRowClick={setSelectedVehicle as any}
           className="text-sm"
         />
       </div>

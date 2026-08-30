@@ -97,7 +97,7 @@ function CityMarker({
       <mesh 
         onClick={onClick} 
         onPointerOver={(e) => e.stopPropagation()}
-        rotation={[-position[0], -position[1], -position[2]].map(v => v / 100) as any}
+        rotation={[-position[0], -position[1], -position[2]].map(v => v / 100) as [number, number, number]}
       >
         <sphereGeometry args={[isSelected ? 6 : 4, 16, 16]} />
         <meshStandardMaterial 
@@ -111,7 +111,7 @@ function CityMarker({
       
       {/* Pulse ring for selected */}
       {isSelected && (
-        <mesh rotation={[-position[0], -position[1], -position[2]].map(v => v / 100) as any}>
+        <mesh rotation={[-position[0], -position[1], -position[2]].map(v => v / 100) as [number, number, number]}>
           <ringGeometry args={[7, 10, 32]} />
           <meshBasicMaterial 
             color={color}

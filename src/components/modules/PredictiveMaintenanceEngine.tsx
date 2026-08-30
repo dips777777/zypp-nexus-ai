@@ -77,7 +77,7 @@ export function PredictiveMaintenanceEngine() {
               className={`px-3 py-1.5 text-sm font-medium transition-all ${
                 timeHorizon === h
                   ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl shadow-md'
-                  : 'bg-gray-100 rounded-xl hover:bg-gray-200:bg-gray-700 text-gray-700'
+                  : 'bg-gray-100 rounded-xl hover:bg-gray-200 text-gray-700'
               }`}
             >
               {h}
@@ -142,8 +142,8 @@ export function PredictiveMaintenanceEngine() {
                   </div>
                    <div className="mt-3 flex flex-wrap gap-2">
                     <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl px-4 py-1.5 text-xs font-medium hover:from-blue-700 hover:to-indigo-700 shadow-sm transition-all">Schedule Now</button>
-                    <button className="px-3 py-1.5 text-xs border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-100:bg-gray-700">View Details</button>
-                    <button className="px-3 py-1.5 text-xs border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-100:bg-gray-700">Order Parts</button>
+                    <button className="px-3 py-1.5 text-xs border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-100">View Details</button>
+                    <button className="px-3 py-1.5 text-xs border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-100">Order Parts</button>
                   </div>
                 </div>
               ))}
@@ -181,15 +181,15 @@ export function PredictiveMaintenanceEngine() {
         <div className="overflow-x-auto">
           <Table
             columns={[
-              { key: 'type', header: 'Type', render: (a: Alert) => a.type.replace('_', ' ') },
-              { key: 'hubId', header: 'Hub', render: (a: Alert) => `Hub ${a.hubId.replace('hub_', '')}` },
-              { key: 'vehicleId', header: 'Vehicle', render: (a: Alert) => a.vehicleId ? a.vehicleId.split('_').pop() : '-' },
-              { key: 'severity', header: 'Severity', render: (a: Alert) => <Badge variant={a.severity === 'critical' ? 'danger' : a.severity === 'warning' ? 'warning' : 'info'}>{a.severity}</Badge> },
+              { key: 'type', header: 'Type', render: (a: any) => a.type.replace('_', ' ') },
+              { key: 'hubId', header: 'Hub', render: (a: any) => `Hub ${a.hubId.replace('hub_', '')}` },
+              { key: 'vehicleId', header: 'Vehicle', render: (a: any) => a.vehicleId ? a.vehicleId.split('_').pop() : '-' },
+              { key: 'severity', header: 'Severity', render: (a: any) => <Badge variant={a.severity === 'critical' ? 'danger' : a.severity === 'warning' ? 'warning' : 'info'}>{a.severity}</Badge> },
               { key: 'message', header: 'Message' },
-              { key: 'timestamp', header: 'Time', render: (a: Alert) => new Date(a.timestamp).toLocaleString() },
-              { key: 'action', header: 'Suggested Action', render: (a: Alert) => a.suggestedAction || '-' },
+              { key: 'timestamp', header: 'Time', render: (a: any) => new Date(a.timestamp).toLocaleString() },
+              { key: 'action', header: 'Suggested Action', render: (a: any) => a.suggestedAction || '-' },
             ]}
-            data={maintenanceAlerts}
+            data={maintenanceAlerts as any}
             className="text-sm"
           />
         </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { MapPin, TrendingUp, TrendingDown, Clock, Sun, Moon, Cloud, Building2, Filter } from 'lucide-react';
+import { MapPin, TrendingUp, Cloud, Building2 } from 'lucide-react';
 import { Card, Badge, MetricCard, Table } from '@/components/ui/Card';
 import { api } from '@/lib/mock-data';
 import type { DemandForecast } from '@/types';
@@ -105,7 +105,7 @@ export function DemandForecastMap() {
             <button
               key={t}
               onClick={() => setTimeRange(t)}
-              className={`px-3 py-1.5 text-sm transition-all duration-300 ${timeRange === t ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200:bg-gray-600 rounded-xl'}`}
+              className={`px-3 py-1.5 text-sm transition-all duration-300 ${timeRange === t ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-xl'}`}
             >
               {t}
             </button>
@@ -176,7 +176,7 @@ export function DemandForecastMap() {
                 <YAxis tick={{ fontSize: 10 }} stroke="#9ca3af" />
                 <Tooltip 
                   formatter={(value: any, name: any) => [value, name]}
-                  labelFormatter={(label: any) => getTimeLabel(new Date(label as string))}
+                  labelFormatter={(label: any) => getTimeLabel(new Date(label))}
                 />
                 <Bar dataKey="predictedOrders" fill="#3b82f6" radius={[4, 4, 0, 0]}>
                   {zoneSummary.flatMap(z => z.forecast.slice(0, 12)).map((entry, index) => (
@@ -200,20 +200,20 @@ export function DemandForecastMap() {
           <div className="overflow-x-auto">
             <Table
               columns={[
-                { key: 'timeSlot', header: 'Time Slot', render: (f: DemandForecast) => getTimeLabel(new Date(f.timeSlot)) },
-                { key: 'predictedOrders', header: 'Predicted Orders', className: 'text-right', render: (f: DemandForecast) => (
-                  <span className={f.predictedOrders > 50 ? 'text-red-600 font-medium' : f.predictedOrders > 30 ? 'text-amber-500' : 'text-green-500'}>{f.predictedOrders}</span>
-                )},
-                { key: 'confidence', header: 'Confidence', className: 'text-right', render: (f: DemandForecast) => `${Math.round(f.confidence * 100)}%` },
-                { key: 'factors', header: 'Demand Factors', render: (f: DemandForecast) => (
+                { key: 'timeSlot', header: 'Time Slot', render: (f: any) => getTimeLabel(new Date(f.timeSlot)) },
+                 { key: 'predictedOrders', header: 'Predicted Orders', className: 'text-right', render: (f: any) => (
+                   <span className={f.predictedOrders > 50 ? 'text-red-600 font-medium' : f.predictedOrders > 30 ? 'text-amber-500' : 'text-green-500'}>{f.predictedOrders}</span>
+                 )},
+                 { key: 'confidence', header: 'Confidence', className: 'text-right', render: (f: any) => `${Math.round(f.confidence * 100)}%` },
+                 { key: 'factors', header: 'Demand Factors', render: (f: any) => (
                   <div className="flex flex-wrap gap-1">
-                    {f.factors.map(factor => (
+                    {f.factors.map((factor: any) => (
                       <Badge key={factor} variant="info" className="text-xs">{factor.replace('_', ' ')}</Badge>
                     ))}
                   </div>
                 )},
               ]}
-              data={forecast.filter(f => f.areaId === selectedZone).slice(0, 24)}
+              data={forecast.filter(f => f.areaId === selectedZone).slice(0, 24) as any}
               className="text-sm"
             />
           </div>
@@ -226,12 +226,12 @@ export function DemandForecastMap() {
           <Table
             columns={[
               { key: 'zoneName', header: 'Zone' },
-              { key: 'timeSlot', header: 'Time', render: (f: DemandForecast) => getTimeLabel(new Date(f.timeSlot)) },
-              { key: 'predictedOrders', header: 'Orders', className: 'text-right', render: (f: DemandForecast) => f.predictedOrders },
-              { key: 'confidence', header: 'Confidence', className: 'text-right', render: (f: DemandForecast) => `${Math.round(f.confidence * 100)}%` },
-              { key: 'factors', header: 'Factors', render: (f: DemandForecast) => f.factors.map(x => <Badge key={x} variant="info" className="text-xs mr-1">{x.replace('_', ' ')}</Badge>) },
+               { key: 'timeSlot', header: 'Time', render: (f: any) => getTimeLabel(new Date(f.timeSlot)) },
+               { key: 'predictedOrders', header: 'Orders', className: 'text-right', render: (f: any) => f.predictedOrders },
+               { key: 'confidence', header: 'Confidence', className: 'text-right', render: (f: any) => `${Math.round(f.confidence * 100)}%` },
+               { key: 'factors', header: 'Factors', render: (f: any) => f.factors.map((x: any) => <Badge key={x} variant="info" className="text-xs mr-1">{x.replace('_', ' ')}</Badge>) },
             ]}
-            data={forecast.slice(0, 50)}
+            data={forecast.slice(0, 50) as any}
             className="text-sm"
           />
         </div>

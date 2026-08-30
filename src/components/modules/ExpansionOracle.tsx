@@ -149,33 +149,33 @@ export function ExpansionOracle() {
         <div className="overflow-x-auto">
           <Table
             columns={[
-              { key: 'city', header: 'City', render: (c: CityExpansionScore) => (
+              { key: 'city', header: 'City', render: (c: any) => (
                 <div className="flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-gray-400" />
                   <span className="font-medium">{c.city}, {c.state}</span>
                 </div>
               )},
-              { key: 'overallScore', header: 'Overall', className: 'text-right', render: (c: CityExpansionScore) => (
+              { key: 'overallScore', header: 'Overall', className: 'text-right', render: (c: any) => (
                 <Badge variant={getScoreColor(c.overallScore)} className="text-lg px-3 py-1">{c.overallScore}</Badge>
               )},
-              { key: 'demandScore', header: 'Demand', className: 'text-center', render: (c: CityExpansionScore) => <ProgressBar value={c.demandScore} showLabel={true} color="blue" /> },
-              { key: 'competitionScore', header: 'Competition', className: 'text-center', render: (c: CityExpansionScore) => (
+              { key: 'demandScore', header: 'Demand', className: 'text-center', render: (c: any) => <ProgressBar value={c.demandScore} showLabel={true} color="blue" /> },
+              { key: 'competitionScore', header: 'Competition', className: 'text-center', render: (c: any) => (
                 <ProgressBar value={100 - c.competitionScore} showLabel={true} color={c.competitionScore < 50 ? 'green' : c.competitionScore < 70 ? 'yellow' : 'red'} />
               )},
-              { key: 'infrastructureScore', header: 'Infrastructure', className: 'text-center', render: (c: CityExpansionScore) => <ProgressBar value={c.infrastructureScore} showLabel={true} color="purple" /> },
-              { key: 'regulatoryScore', header: 'Regulatory', className: 'text-center', render: (c: CityExpansionScore) => <ProgressBar value={c.regulatoryScore} showLabel={true} color={c.regulatoryScore > 75 ? 'green' : 'yellow'} /> },
+              { key: 'infrastructureScore', header: 'Infrastructure', className: 'text-center', render: (c: any) => <ProgressBar value={c.infrastructureScore} showLabel={true} color="purple" /> },
+              { key: 'regulatoryScore', header: 'Regulatory', className: 'text-center', render: (c: any) => <ProgressBar value={c.regulatoryScore} showLabel={true} color={c.regulatoryScore > 75 ? 'green' : 'yellow'} /> },
               { key: 'estimatedFleetSize', header: 'Est. Fleet', className: 'text-right' },
-              { key: 'estimatedMonthlyRevenue', header: 'Est. Monthly Rev', className: 'text-right', render: (c: CityExpansionScore) => `₹${(c.estimatedMonthlyRevenue/100000).toFixed(1)}L` },
-              { key: 'paybackMonths', header: 'Payback', className: 'text-right', render: (c: CityExpansionScore) => `${c.paybackMonths} months` },
-              { key: 'keyFactors', header: 'Key Factors', render: (c: CityExpansionScore) => (
+              { key: 'estimatedMonthlyRevenue', header: 'Est. Monthly Rev', className: 'text-right', render: (c: any) => `₹${(c.estimatedMonthlyRevenue/100000).toFixed(1)}L` },
+              { key: 'paybackMonths', header: 'Payback', className: 'text-right', render: (c: any) => `${c.paybackMonths} months` },
+              { key: 'keyFactors', header: 'Key Factors', render: (c: any) => (
                 <div className="flex flex-wrap gap-1">
-                  {c.keyFactors.map(f => <Badge key={f} variant="info" className="text-xs">{f}</Badge>)}
+                  {c.keyFactors.map((f: any) => <Badge key={f} variant="info" className="text-xs">{f}</Badge>)}
                 </div>
               )},
             ]}
-            data={sortedCities}
+            data={sortedCities as any}
             className="text-sm"
-            onRowClick={setSelectedCity}
+            onRowClick={setSelectedCity as any}
           />
         </div>
       </div>
@@ -330,10 +330,10 @@ function CityDetailView({ city, onClose }: { city: CityExpansionScore; onClose: 
           <ArrowRight className="w-4 h-4" />
           Initiate Feasibility Study
         </button>
-        <button className="px-6 py-2 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-100:bg-gray-700 transition-all">
+        <button className="px-6 py-2 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-100 transition-all">
           Export Report
         </button>
-        <button className="px-6 py-2 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-100:bg-gray-700 transition-all">
+        <button className="px-6 py-2 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-100 transition-all">
           Compare with Current Hubs
         </button>
       </div>

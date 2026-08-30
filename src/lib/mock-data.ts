@@ -67,7 +67,7 @@ function generateVehicles(hubId: string, hubCenter: [number, number], count: num
     };
     
     vehicle.healthScore = calculateVehicleHealthScore(vehicle);
-    vehicle.predictedFailureRisk = getPredictedFailureRisk(vehicle.healthScore, vehicle);
+    vehicle.predictedFailureRisk = getPredictedFailureRisk(vehicle.healthScore);
     
     vehicles.push(vehicle);
   }
@@ -118,8 +118,6 @@ function generateRiders(hubId: string, vehicles: Vehicle[], count: number): Ride
 // Generate alerts for a hub
 function generateAlerts(hubId: string, vehicles: Vehicle[], riders: Rider[]): Alert[] {
   const alerts: Alert[] = [];
-  const alertTypes: Alert['type'][] = ['battery_low', 'vehicle_breakdown', 'rider_offline', 'maintenance_due', 'high_demand', 'charging_station_full', 'weather', 'traffic'];
-  const severities: Alert['severity'][] = ['info', 'warning', 'critical'];
   
   // Battery low alerts
   vehicles.filter(v => v.currentBattery < 20 && v.status !== 'charging').slice(0, 3).forEach(v => {
@@ -185,7 +183,7 @@ function generateAlerts(hubId: string, vehicles: Vehicle[], riders: Rider[]): Al
 
 // Generate all hubs with vehicles, riders, alerts
 export function generateMockHubs(): Hub[] {
-  return HUB_LOCATIONS.map((loc, idx) => {
+  return HUB_LOCATIONS.map((loc) => {
     const fleetSize = 130 + Math.floor(Math.random() * 40); // 130-170
     const riderCount = 100 + Math.floor(Math.random() * 40); // 100-140
     const vehicles = generateVehicles(loc.id, loc.coords, fleetSize);

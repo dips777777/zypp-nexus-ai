@@ -37,6 +37,13 @@ export function HubCommandCenter() {
     return 'danger';
   };
 
+  const getAutonomyBarColor = (score: number): 'blue' | 'green' | 'yellow' | 'red' | 'purple' => {
+    if (score >= 85) return 'green';
+    if (score >= 70) return 'blue';
+    if (score >= 55) return 'yellow';
+    return 'red';
+  };
+
   const getAutonomyLabel = (score: number) => {
     if (score >= 85) return 'Fully Autonomous';
     if (score >= 70) return 'High Autonomy';
@@ -122,7 +129,7 @@ export function HubCommandCenter() {
                       <span className={getAutonomyTextColor(hub.autonomyScore)}>{hub.autonomyScore}%</span>
                     </Badge>
                   </div>
-                  <ProgressBar value={hub.autonomyScore} color={getAutonomyColor(hub.autonomyScore) as any} showLabel={false} />
+                  <ProgressBar value={hub.autonomyScore} color={getAutonomyBarColor(hub.autonomyScore)} showLabel={false} />
                   <p className={`text-xs mt-1 font-medium ${getAutonomyTextColor(hub.autonomyScore)}`}>{getAutonomyLabel(hub.autonomyScore)}</p>
                 </div>
               ))}
@@ -134,7 +141,7 @@ export function HubCommandCenter() {
           <div className="overflow-x-auto">
             <Table
               columns={[
-                { key: 'name', header: 'Hub', render: (h: Hub) => (
+                { key: 'name', header: 'Hub', render: (h: any) => (
                   <div>
                     <p className="font-medium">{h.name}</p>
                     <p className="text-xs text-gray-500">{h.city}</p>
@@ -142,16 +149,16 @@ export function HubCommandCenter() {
                 )},
                 { key: 'fleetSize', header: 'Fleet', className: 'text-right' },
                 { key: 'riderCount', header: 'Riders', className: 'text-right' },
-                { key: 'autonomyScore', header: 'Autonomy', className: 'text-right', render: (h: Hub) => (
+                { key: 'autonomyScore', header: 'Autonomy', className: 'text-right', render: (h: any) => (
                   <Badge variant={getAutonomyColor(h.autonomyScore)}>{h.autonomyScore}%</Badge>
                 )},
                 { key: 'todayDeliveries', header: 'Deliveries', className: 'text-right' },
-                { key: 'todayRevenue', header: 'Revenue', className: 'text-right', render: (h: Hub) => `₹${(h.todayRevenue/1000).toFixed(0)}K` },
-                { key: 'status', header: 'Status', render: (h: Hub) => <Badge variant={h.status === 'active' ? 'success' : h.status === 'maintenance' ? 'warning' : 'danger'}>{h.status}</Badge> },
+                { key: 'todayRevenue', header: 'Revenue', className: 'text-right', render: (h: any) => `₹${(h.todayRevenue/1000).toFixed(0)}K` },
+                { key: 'status', header: 'Status', render: (h: any) => <Badge variant={h.status === 'active' ? 'success' : h.status === 'maintenance' ? 'warning' : 'danger'}>{h.status}</Badge> },
               ]}
-              data={hubs}
+              data={hubs as any}
               className="text-sm"
-              onRowClick={setSelectedHub}
+              onRowClick={setSelectedHub as any}
             />
           </div>
         </div>
@@ -210,13 +217,13 @@ export function HubCommandCenter() {
                 <div className="overflow-x-auto">
                   <Table
                     columns={[
-                      { key: 'type', header: 'Type', render: (a: Alert) => a.type.replace('_', ' ') },
-                      { key: 'severity', header: 'Severity', render: (a: Alert) => <Badge variant={a.severity === 'critical' ? 'danger' : a.severity === 'warning' ? 'warning' : 'info'}>{a.severity}</Badge> },
+                      { key: 'type', header: 'Type', render: (a: any) => a.type.replace('_', ' ') },
+                      { key: 'severity', header: 'Severity', render: (a: any) => <Badge variant={a.severity === 'critical' ? 'danger' : a.severity === 'warning' ? 'warning' : 'info'}>{a.severity}</Badge> },
                       { key: 'message', header: 'Message' },
-                      { key: 'timestamp', header: 'Time', render: (a: Alert) => new Date(a.timestamp).toLocaleTimeString() },
-                      { key: 'action', header: 'Suggested Action', render: (a: Alert) => a.suggestedAction || '-' },
+                      { key: 'timestamp', header: 'Time', render: (a: any) => new Date(a.timestamp).toLocaleTimeString() },
+                      { key: 'action', header: 'Suggested Action', render: (a: any) => a.suggestedAction || '-' },
                     ]}
-                    data={selectedHub.alerts}
+                    data={selectedHub.alerts as any}
                     className="text-sm"
                   />
                 </div>

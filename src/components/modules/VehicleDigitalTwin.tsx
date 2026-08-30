@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Search, Filter, Battery, Truck, Wrench, AlertTriangle, CheckCircle, XCircle, ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
-import { Card, Badge, MetricCard, ProgressBar, Table } from '@/components/ui/Card';
+import { Search, Battery, Truck, Wrench, AlertTriangle, CheckCircle, ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
+import { Card, Badge, MetricCard, Table } from '@/components/ui/Card';
 import { api } from '@/lib/mock-data';
 import type { Vehicle } from '@/types';
 
@@ -13,7 +13,16 @@ export function VehicleDigitalTwin() {
   const [riskFilter, setRiskFilter] = useState<string>('all');
   const [hubFilter, setHubFilter] = useState<string>('all');
   const [loading, setLoading] = useState(true);
-  const [viewIndex, setViewIndex] = useState(0);
+  const [currentTime, setCurrentTime] = useState(() => Date.now());
+
+  useEffect(() => {
+    const updateCurrentTime = () => {
+      setCurrentTime(Date.now());
+    };
+    updateCurrentTime();
+    const interval = setInterval(updateCurrentTime, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -164,14 +173,14 @@ function VehicleDetailView({ vehicle, onClose, onNavigate }: { vehicle: Vehicle;
       <div className="bg-white rounded-2xl shadow-2xl border border-gray-200/60 animate-fade-in-scale w-full max-w-full lg:max-w-4xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
         <div className="sticky top-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 p-4 flex items-center justify-between z-10">
           <div className="flex items-center gap-4">
-            <button onClick={() => onNavigate(-1)} className="p-2 hover:bg-gray-100:bg-gray-700 rounded-xl transition-all"><ChevronLeft className="w-5 h-5" /></button>
+            <button onClick={() => onNavigate(-1)} className="p-2 hover:bg-gray-100 rounded-xl transition-all"><ChevronLeft className="w-5 h-5" /></button>
             <div>
               <h3 className="text-lg font-semibold">{vehicle.registrationNumber}</h3>
               <p className="text-sm text-gray-500">{vehicle.model} • Hub #{vehicle.hubId.replace('hub_', '')}</p>
             </div>
-            <button onClick={() => onNavigate(1)} className="p-2 hover:bg-gray-100:bg-gray-700 rounded-xl transition-all"><ChevronRight className="w-5 h-5" /></button>
+            <button onClick={() => onNavigate(1)} className="p-2 hover:bg-gray-100 rounded-xl transition-all"><ChevronRight className="w-5 h-5" /></button>
           </div>
-          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-xl bg-gray-100 text-gray-500 hover:text-gray-700:text-gray-300 hover:bg-gray-200:bg-gray-600 transition-all text-lg font-medium">×</button>
+          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-xl bg-gray-100 text-gray-500 hover:text-gray-700 hover:bg-gray-200 transition-all text-lg font-medium">×</button>
         </div>
 
         <div className="p-6 space-y-6">
@@ -321,8 +330,8 @@ function VehicleDetailView({ vehicle, onClose, onNavigate }: { vehicle: Vehicle;
               </p>
               <div className="mt-3 flex flex-wrap gap-3">
                 <button className="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl text-sm shadow-sm hover:shadow-md transition-all font-medium">Schedule Maintenance</button>
-                <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-xl text-sm hover:bg-gray-100:bg-gray-700 transition-all">View Service History</button>
-                <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-xl text-sm hover:bg-gray-100:bg-gray-700 transition-all">Order Parts</button>
+                <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-xl text-sm hover:bg-gray-100 transition-all">View Service History</button>
+                <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-xl text-sm hover:bg-gray-100 transition-all">Order Parts</button>
               </div>
             </div>
           </div>

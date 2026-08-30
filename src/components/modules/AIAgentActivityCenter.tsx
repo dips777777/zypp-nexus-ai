@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, useMemo } from 'react';
-import { Bot, Zap, TrendingUp, Wrench, MapPin, DollarSign, Truck, Battery, Search, Loader2, CheckCircle, Clock, AlertTriangle, Radio } from 'lucide-react';
-import { Card, Badge, MetricCard, Table, ProgressBar } from '@/components/ui/Card';
+import { Bot, Zap, TrendingUp, Wrench, MapPin, DollarSign, Truck, Battery, Search, CheckCircle, AlertTriangle, Radio } from 'lucide-react';
+import { Card, Badge, MetricCard, ProgressBar } from '@/components/ui/Card';
 import { api, mockAgentActivity } from '@/lib/mock-data';
 import type { AgentActivity } from '@/types';
 
@@ -44,6 +44,16 @@ export function AIAgentActivityCenter() {
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [loading, setLoading] = useState(true);
   const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
+  const [currentTime, setCurrentTime] = useState(() => Date.now());
+
+  useEffect(() => {
+    const updateCurrentTime = () => {
+      setCurrentTime(Date.now());
+    };
+    updateCurrentTime();
+    const interval = setInterval(updateCurrentTime, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -137,7 +147,7 @@ export function AIAgentActivityCenter() {
           <option value="medium">Medium</option>
           <option value="low">Low</option>
         </select>
-        <select value={timeFilter} onChange={e => setTimeFilter(e.target.value as any)} className="px-3 py-2 border border-gray-300 rounded-xl bg-white text-sm">
+        <select value={timeFilter} onChange={e => setTimeFilter(e.target.value as '1h' | '6h' | '24h' | '7d')} className="px-3 py-2 border border-gray-300 rounded-xl bg-white text-sm">
           <option value="1h">Last Hour</option>
           <option value="6h">Last 6 Hours</option>
           <option value="24h">Last 24 Hours</option>
@@ -234,7 +244,7 @@ export function AIAgentActivityCenter() {
                 const config = AGENT_CONFIG[activity.agentType];
                 const Icon = config.icon;
                 const colors = COLOR_MAP[config.color] || COLOR_MAP.blue;
-                const timeAgo = Math.round((Date.now() - new Date(activity.timestamp).getTime()) / 60000);
+                const timeAgo = Math.round((currentTime - new Date(activity.timestamp).getTime()) / 60000);
                 const impactStyle = IMPACT_STYLES[activity.impact] || IMPACT_STYLES.low;
 
                 return (
