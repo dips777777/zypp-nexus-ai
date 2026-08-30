@@ -54,8 +54,8 @@ export function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex">
-      {/* Sidebar - hidden on mobile */}
-      <aside className={`${sidebarOpen ? 'w-72' : 'w-20'} hidden lg:flex fixed inset-y-0 left-0 z-40 bg-white dark:bg-gray-800/95 backdrop-blur-md border-r border-gray-200/60 dark:border-gray-700/60 transition-all duration-300 flex-col`}>
+      {/* Sidebar - desktop only */}
+      <aside className={`${sidebarOpen ? 'w-72' : 'w-20'} max-lg:!hidden fixed inset-y-0 left-0 z-40 bg-white dark:bg-gray-800/95 backdrop-blur-md border-r border-gray-200/60 dark:border-gray-700/60 transition-all duration-300 flex flex-col`}>
         {/* Brand Header */}
         <div className="h-16 px-4 flex items-center justify-between border-b border-gray-100 dark:border-gray-700/50 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700">
           <div className="flex items-center gap-3">
@@ -137,7 +137,7 @@ export function Dashboard() {
       <main className={`${sidebarOpen ? 'lg:ml-72' : 'lg:ml-20'} flex-1 min-h-screen`}>
         {/* Top Bar */}
         <header className="sticky top-0 z-30 bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border-b border-gray-200/40 dark:border-gray-700/40">
-          <div className="flex items-center justify-between h-14 sm:h-16 px-4 sm:px-6">
+          <div className="flex items-center justify-between h-14 sm:h-16 pl-12 sm:pl-6 pr-4 sm:pr-6">
             <div className="flex items-center gap-3 min-w-0">
               <h1 className="text-base sm:text-xl font-bold text-gray-900 dark:text-white tracking-tight truncate">
                 {activeModuleInfo?.label}
