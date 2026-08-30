@@ -18,9 +18,6 @@ export const metadata: Metadata = {
   icons: {
     icon: "/icon.svg",
   },
-  other: {
-    "color-scheme": "light",
-  },
 };
 
 export const viewport: Viewport = {
@@ -29,14 +26,12 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  colorScheme: "light",
 };
 
 const forceLightMode = `
 (() => {
   document.documentElement.classList.remove('dark');
-  document.documentElement.style.colorScheme = 'light';
-  document.documentElement.setAttribute('color-scheme', 'light');
+  document.documentElement.style.colorScheme = 'only light';
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.getRegistrations().then(r => r.forEach(s => s.unregister()));
   }
@@ -52,16 +47,12 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
-      style={{ colorScheme: 'light' }}
     >
       <head>
-        <meta name="color-scheme" content="light" />
+        <meta name="color-scheme" content="only light" />
         <script dangerouslySetInnerHTML={{ __html: forceLightMode }} />
       </head>
-      <body
-        className="min-h-full flex flex-col bg-gray-50 text-gray-900"
-        style={{ background: '#f9fafb', color: '#111827' }}
-      >
+      <body className="min-h-full flex flex-col bg-gray-50 text-gray-900">
         {children}
       </body>
     </html>
