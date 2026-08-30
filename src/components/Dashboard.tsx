@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { LayoutDashboard, Truck, Zap, Target, Cpu, Wrench, MapPin, DollarSign, RotateCcw, Globe, Bot, Sunrise, ChevronLeft, ChevronRight, Menu, X, Bell, Settings, User } from 'lucide-react';
 import { AICommandCenter } from './modules/AICommandCenter';
 import { LiveFleetIntelligence } from './modules/LiveFleetIntelligence';
@@ -48,15 +48,23 @@ export function Dashboard() {
   const [activeModule, setActiveModule] = useState<ModuleId>('command-center');
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 1024);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   const ModuleComponent = moduleComponents[activeModule];
   const activeModuleInfo = MODULES.find(m => m.id === activeModule);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex">
+    <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar - desktop only */}
-      <div className="hidden lg:block">
-        <aside className={`${sidebarOpen ? 'w-72' : 'w-20'} fixed inset-y-0 left-0 z-40 bg-white dark:bg-gray-800/95 backdrop-blur-md border-r border-gray-200/60 dark:border-gray-700/60 transition-all duration-300 flex flex-col`}>
+      {!isMobile && (
+        <aside className={`${sidebarOpen ? 'w-72' : 'w-20'} fixed inset-y-0 left-0 z-40 bg-white border-r border-gray-200/60 transition-all duration-300 flex flex-col`}>
         {/* Brand Header */}
         <div className="h-16 px-4 flex items-center justify-between border-b border-gray-100 dark:border-gray-700/50 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700">
           <div className="flex items-center gap-3">
@@ -119,11 +127,11 @@ export function Dashboard() {
           )}
         </div>
       </aside>
-      </div>
+      )}
 
       {/* Mobile Menu Button */}
       <button
-        className="lg:hidden fixed top-3 left-3 z-50 p-2 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200/60 dark:border-gray-700/60"
+        className="lg:hidden fixed top-3 left-3 z-50 p-2 bg-white rounded-xl shadow-lg border border-gray-200/60"
         onClick={() => setMobileMenuOpen(true)}
         aria-label="Open menu"
       >
@@ -138,10 +146,10 @@ export function Dashboard() {
       {/* Main Content */}
       <main className={`${sidebarOpen ? 'lg:ml-72' : 'lg:ml-20'} flex-1 min-h-screen`}>
         {/* Top Bar */}
-        <header className="sticky top-0 z-30 bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border-b border-gray-200/40 dark:border-gray-700/40">
+        <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-lg border-b border-gray-200/40">
           <div className="flex items-center justify-between h-14 sm:h-16 pl-12 sm:pl-6 pr-4 sm:pr-6">
             <div className="flex items-center gap-3 min-w-0">
-              <h1 className="text-base sm:text-xl font-bold text-gray-900 dark:text-white tracking-tight truncate">
+              <h1 className="text-base sm:text-xl font-bold text-gray-900 tracking-tight truncate">
                 {activeModuleInfo?.label}
               </h1>
               {sidebarOpen && activeModuleInfo && (
@@ -149,20 +157,20 @@ export function Dashboard() {
               )}
             </div>
             <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
-              <button className="p-2 sm:p-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700/50 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 relative transition-colors">
+              <button className="p-2 sm:p-2.5 rounded-xl hover:bg-gray-100 text-gray-400 hover:text-gray-600 relative transition-colors">
                 <Bell className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
-                <span className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white dark:ring-gray-800" />
+                <span className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white" />
               </button>
-              <button className="p-2 sm:p-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700/50 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors hidden sm:block">
+              <button className="p-2 sm:p-2.5 rounded-xl hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors hidden sm:block">
                 <Settings className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
               </button>
-              <div className="hidden sm:flex items-center gap-3 pl-3 ml-1 border-l border-gray-200/60 dark:border-gray-700/60">
+              <div className="hidden sm:flex items-center gap-3 pl-3 ml-1 border-l border-gray-200/60">
                 <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-sm shadow-blue-500/20">
                   <User className="w-4 h-4 text-white" />
                 </div>
                 <div className="text-left hidden md:block">
-                  <p className="text-sm font-semibold text-gray-900 dark:text-white">Zypp Electric</p>
-                  <p className="text-[11px] text-gray-400 dark:text-gray-500 font-medium">Fleet Operations</p>
+                  <p className="text-sm font-semibold text-gray-900">Zypp Electric</p>
+                  <p className="text-[11px] text-gray-400 font-medium">Fleet Operations</p>
                 </div>
               </div>
             </div>
@@ -177,7 +185,7 @@ export function Dashboard() {
 
       {/* Mobile Sidebar */}
       {mobileMenuOpen && (
-        <aside className="lg:hidden fixed inset-y-0 left-0 z-50 w-72 bg-white dark:bg-gray-800 border-r border-gray-200/60 dark:border-gray-700/60 flex flex-col shadow-2xl">
+        <aside className="lg:hidden fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-gray-200/60 flex flex-col shadow-2xl">
           <div className="h-16 px-4 flex items-center justify-between border-b border-gray-100 dark:border-gray-700/50 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
