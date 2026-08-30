@@ -54,8 +54,8 @@ export function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex">
-      {/* Sidebar */}
-      <aside className={`${sidebarOpen ? 'w-72' : 'w-20'} fixed inset-y-0 left-0 z-40 bg-white dark:bg-gray-800/95 backdrop-blur-md border-r border-gray-200/60 dark:border-gray-700/60 transition-all duration-300 flex flex-col`}>
+      {/* Sidebar - hidden on mobile */}
+      <aside className={`${sidebarOpen ? 'w-72' : 'w-20'} hidden lg:flex fixed inset-y-0 left-0 z-40 bg-white dark:bg-gray-800/95 backdrop-blur-md border-r border-gray-200/60 dark:border-gray-700/60 transition-all duration-300 flex-col`}>
         {/* Brand Header */}
         <div className="h-16 px-4 flex items-center justify-between border-b border-gray-100 dark:border-gray-700/50 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700">
           <div className="flex items-center gap-3">
@@ -121,7 +121,7 @@ export function Dashboard() {
 
       {/* Mobile Menu Button */}
       <button
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200/60 dark:border-gray-700/60"
+        className="lg:hidden fixed top-3 left-3 z-50 p-2 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200/60 dark:border-gray-700/60"
         onClick={() => setMobileMenuOpen(true)}
         aria-label="Open menu"
       >
@@ -137,41 +137,39 @@ export function Dashboard() {
       <main className={`${sidebarOpen ? 'lg:ml-72' : 'lg:ml-20'} flex-1 min-h-screen`}>
         {/* Top Bar */}
         <header className="sticky top-0 z-30 bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border-b border-gray-200/40 dark:border-gray-700/40">
-          <div className="flex items-center justify-between h-16 px-6">
-            <div className="flex items-center gap-4">
-              <h1 className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">
+          <div className="flex items-center justify-between h-14 sm:h-16 px-4 sm:px-6">
+            <div className="flex items-center gap-3 min-w-0">
+              <h1 className="text-base sm:text-xl font-bold text-gray-900 dark:text-white tracking-tight truncate">
                 {activeModuleInfo?.label}
               </h1>
               {sidebarOpen && activeModuleInfo && (
-                <span className="text-sm text-gray-400 dark:text-gray-500 hidden sm:block font-medium">{activeModuleInfo.description}</span>
+                <span className="text-sm text-gray-400 dark:text-gray-500 hidden md:block font-medium">{activeModuleInfo.description}</span>
               )}
             </div>
-            <div className="flex items-center gap-2">
-              <button className="p-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700/50 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 relative transition-colors">
-                <Bell className="w-[18px] h-[18px]" />
-                <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white dark:ring-gray-800" />
+            <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+              <button className="p-2 sm:p-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700/50 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 relative transition-colors">
+                <Bell className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
+                <span className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white dark:ring-gray-800" />
               </button>
-              <button className="p-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700/50 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
-                <Settings className="w-[18px] h-[18px]" />
+              <button className="p-2 sm:p-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700/50 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors hidden sm:block">
+                <Settings className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
               </button>
-              <div className="flex items-center gap-3 pl-3 ml-1 border-l border-gray-200/60 dark:border-gray-700/60">
+              <div className="hidden sm:flex items-center gap-3 pl-3 ml-1 border-l border-gray-200/60 dark:border-gray-700/60">
                 <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-sm shadow-blue-500/20">
                   <User className="w-4 h-4 text-white" />
                 </div>
-                {sidebarOpen && (
-                  <div className="text-left hidden sm:block">
-                    <p className="text-sm font-semibold text-gray-900 dark:text-white">Zypp Electric</p>
-                    <p className="text-[11px] text-gray-400 dark:text-gray-500 font-medium">Fleet Operations</p>
-                  </div>
-                )}
+                <div className="text-left hidden md:block">
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white">Zypp Electric</p>
+                  <p className="text-[11px] text-gray-400 dark:text-gray-500 font-medium">Fleet Operations</p>
+                </div>
               </div>
             </div>
           </div>
         </header>
 
         {/* Module Content */}
-        <div className="p-6">
-          <ModuleComponent className="h-[calc(100vh-120px)]" />
+        <div className="p-3 sm:p-4 md:p-6">
+          <ModuleComponent className="h-auto md:h-[calc(100vh-120px)]" />
         </div>
       </main>
 
