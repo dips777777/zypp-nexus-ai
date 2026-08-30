@@ -115,7 +115,7 @@ export function AIAgentActivityCenter() {
   return (
     <Card title="AI Agent Activity Center" subtitle={`Live agent log • ${automationRate}% automated • Updated: ${lastUpdated.toLocaleTimeString()}`} className="h-full">
       <div className="flex flex-wrap gap-4 items-center mb-4">
-        <div className="flex-1 min-w-[200px] relative">
+        <div className="flex-1 w-full sm:min-w-[200px] relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input
             type="text"
@@ -125,7 +125,7 @@ export function AIAgentActivityCenter() {
             className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-sm"
           />
         </div>
-        <select value={agentFilter} onChange={e => setAgentFilter(e.target.value)} className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-sm min-w-[160px]">
+        <select value={agentFilter} onChange={e => setAgentFilter(e.target.value)} className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-sm w-full sm:min-w-[160px]">
           <option value="all">All Agents</option>
           {Object.entries(AGENT_CONFIG).map(([key, config]) => (
             <option key={key} value={key}>{config.label} ({agentStats[key]?.count || 0})</option>

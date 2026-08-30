@@ -134,7 +134,7 @@ ${narrative.opportunities.map(o => `- ${o}`).join('\n')}
       {/* Greeting Banner */}
       <div className={`bg-gradient-to-r ${getGreetingGradient()} rounded-2xl p-6 mb-6 shadow-lg relative overflow-hidden`}>
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djZoNnYtNmgtNnptMC0zMHY2aDZ2LTZoLTZ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-30" />
-        <div className="relative flex items-center justify-between">
+        <div className="relative flex items-center justify-between flex-wrap gap-3">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-lg">
               <Sunrise className="w-7 h-7 text-white" />

@@ -130,7 +130,7 @@ export function AICommandCenter() {
                     <p className="text-xs text-gray-400 dark:text-gray-500">{hub.city} &bull; {hub.fleetSize} vehicles &bull; {hub.riderCount} riders</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center flex-wrap gap-2">
                   <Badge variant={getStatusColor(hub.status)}>{hub.status}</Badge>
                   <span className={`text-sm font-bold ${autonomyColor}`}>{hub.autonomyScore}%</span>
                   <Badge variant={hubCritical > 0 ? 'danger' : hubWarnings > 0 ? 'warning' : 'success'}>
@@ -156,19 +156,21 @@ export function AICommandCenter() {
                         <Signal className="w-4 h-4 text-gray-400" />
                         Active Alerts
                       </h5>
-                      <Table
-                        columns={[
-                          { key: 'type', header: 'Type', render: (a: Alert) => (
-                            <span className="flex items-center gap-2">{getAlertIcon(a.type)} {a.type.replace('_', ' ')}</span>
-                          )},
-                          { key: 'message', header: 'Message' },
-                          { key: 'severity', header: 'Severity', render: (a: Alert) => <Badge variant={a.severity === 'critical' ? 'danger' : a.severity === 'warning' ? 'warning' : 'info'}>{a.severity}</Badge> },
-                          { key: 'timestamp', header: 'Time', render: (a: Alert) => new Date(a.timestamp).toLocaleTimeString() },
-                          { key: 'action', header: 'Action', render: (a: Alert) => a.suggestedAction || '-' },
-                        ]}
-                        data={hubAlerts}
-                        className="text-sm"
-                      />
+                      <div className="overflow-x-auto">
+                        <Table
+                          columns={[
+                            { key: 'type', header: 'Type', render: (a: Alert) => (
+                              <span className="flex items-center gap-2">{getAlertIcon(a.type)} {a.type.replace('_', ' ')}</span>
+                            )},
+                            { key: 'message', header: 'Message' },
+                            { key: 'severity', header: 'Severity', render: (a: Alert) => <Badge variant={a.severity === 'critical' ? 'danger' : a.severity === 'warning' ? 'warning' : 'info'}>{a.severity}</Badge> },
+                            { key: 'timestamp', header: 'Time', render: (a: Alert) => new Date(a.timestamp).toLocaleTimeString() },
+                            { key: 'action', header: 'Action', render: (a: Alert) => a.suggestedAction || '-' },
+                          ]}
+                          data={hubAlerts}
+                          className="text-sm"
+                        />
+                      </div>
                     </div>
                   )}
                 </div>

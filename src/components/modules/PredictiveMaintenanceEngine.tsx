@@ -114,7 +114,7 @@ export function PredictiveMaintenanceEngine() {
                     ? 'border-l-4 border-l-red-500 bg-red-50/50 dark:bg-red-900/5'
                     : 'border-l-4 border-l-amber-500 bg-amber-50/50 dark:bg-amber-900/5'
                 }`}>
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex flex-wrap items-center justify-between mb-2">
                     <div className="flex items-center gap-3">
                       <span className="font-mono font-medium text-gray-900 dark:text-white">{vehicle.registrationNumber}</span>
                       <Badge variant={getRiskColor(vehicle.predictedFailureRisk)}>{vehicle.predictedFailureRisk}</Badge>
@@ -134,13 +134,13 @@ export function PredictiveMaintenanceEngine() {
                       Health: {vehicle.healthScore}
                     </Badge>
                   </div>
-                  <div className="grid grid-cols-4 gap-4 text-sm text-gray-600 dark:text-gray-400">
+                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600 dark:text-gray-400">
                     <div><span className="font-medium">Battery:</span> <span className={vehicle.currentBattery < 20 ? 'text-red-600' : ''}>{vehicle.currentBattery}%</span></div>
                     <div><span className="font-medium">Distance:</span> {vehicle.totalDistance.toLocaleString()} km</div>
                     <div><span className="font-medium">Repairs:</span> {vehicle.repairCount}</div>
                     <div><span className="font-medium">Last Service:</span> {new Date(vehicle.lastServiceDate).toLocaleDateString()}</div>
                   </div>
-                  <div className="mt-3 flex gap-2">
+                   <div className="mt-3 flex flex-wrap gap-2">
                     <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl px-4 py-1.5 text-xs font-medium hover:from-blue-700 hover:to-indigo-700 shadow-sm transition-all">Schedule Now</button>
                     <button className="px-3 py-1.5 text-xs border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700">View Details</button>
                     <button className="px-3 py-1.5 text-xs border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700">Order Parts</button>
@@ -178,19 +178,21 @@ export function PredictiveMaintenanceEngine() {
 
       <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
         <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Maintenance Alerts</h4>
-        <Table
-          columns={[
-            { key: 'type', header: 'Type', render: (a: Alert) => a.type.replace('_', ' ') },
-            { key: 'hubId', header: 'Hub', render: (a: Alert) => `Hub ${a.hubId.replace('hub_', '')}` },
-            { key: 'vehicleId', header: 'Vehicle', render: (a: Alert) => a.vehicleId ? a.vehicleId.split('_').pop() : '-' },
-            { key: 'severity', header: 'Severity', render: (a: Alert) => <Badge variant={a.severity === 'critical' ? 'danger' : a.severity === 'warning' ? 'warning' : 'info'}>{a.severity}</Badge> },
-            { key: 'message', header: 'Message' },
-            { key: 'timestamp', header: 'Time', render: (a: Alert) => new Date(a.timestamp).toLocaleString() },
-            { key: 'action', header: 'Suggested Action', render: (a: Alert) => a.suggestedAction || '-' },
-          ]}
-          data={maintenanceAlerts}
-          className="text-sm"
-        />
+        <div className="overflow-x-auto">
+          <Table
+            columns={[
+              { key: 'type', header: 'Type', render: (a: Alert) => a.type.replace('_', ' ') },
+              { key: 'hubId', header: 'Hub', render: (a: Alert) => `Hub ${a.hubId.replace('hub_', '')}` },
+              { key: 'vehicleId', header: 'Vehicle', render: (a: Alert) => a.vehicleId ? a.vehicleId.split('_').pop() : '-' },
+              { key: 'severity', header: 'Severity', render: (a: Alert) => <Badge variant={a.severity === 'critical' ? 'danger' : a.severity === 'warning' ? 'warning' : 'info'}>{a.severity}</Badge> },
+              { key: 'message', header: 'Message' },
+              { key: 'timestamp', header: 'Time', render: (a: Alert) => new Date(a.timestamp).toLocaleString() },
+              { key: 'action', header: 'Suggested Action', render: (a: Alert) => a.suggestedAction || '-' },
+            ]}
+            data={maintenanceAlerts}
+            className="text-sm"
+          />
+        </div>
       </div>
     </Card>
   );

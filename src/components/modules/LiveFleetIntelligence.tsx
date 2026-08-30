@@ -105,7 +105,7 @@ export function LiveFleetIntelligence() {
   return (
     <Card title="Live Fleet Intelligence" subtitle={`Last updated: ${lastUpdated.toLocaleTimeString()}`} className="h-full">
       <div className="mb-5 flex flex-wrap gap-3 items-center">
-        <div className="flex-1 min-w-[200px] relative">
+        <div className="flex-1 w-full sm:min-w-[200px] relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input
             type="text"
@@ -118,7 +118,7 @@ export function LiveFleetIntelligence() {
         <select
           value={statusFilter}
           onChange={e => setStatusFilter(e.target.value)}
-          className="px-3 py-2.5 border border-gray-200/60 dark:border-gray-700/60 rounded-xl bg-gray-50 dark:bg-gray-800/60 text-sm min-w-[150px] focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all"
+          className="px-3 py-2.5 border border-gray-200/60 dark:border-gray-700/60 rounded-xl bg-gray-50 dark:bg-gray-800/60 text-sm w-full sm:min-w-[150px] focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all"
         >
           <option value="all">All Statuses</option>
           {Object.entries(STATUS_CONFIG).map(([key, config]) => (
@@ -128,7 +128,7 @@ export function LiveFleetIntelligence() {
         <select
           value={hubFilter}
           onChange={e => setHubFilter(e.target.value)}
-          className="px-3 py-2.5 border border-gray-200/60 dark:border-gray-700/60 rounded-xl bg-gray-50 dark:bg-gray-800/60 text-sm min-w-[150px] focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all"
+          className="px-3 py-2.5 border border-gray-200/60 dark:border-gray-700/60 rounded-xl bg-gray-50 dark:bg-gray-800/60 text-sm w-full sm:min-w-[150px] focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all"
         >
           <option value="all">All Hubs</option>
           {hubs.map(hubId => (

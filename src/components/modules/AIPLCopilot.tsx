@@ -106,7 +106,7 @@ export function AIPLCopilot() {
   return (
     <Card title="AI P&L Copilot" subtitle={`${hubData?.name} • ${period.charAt(0).toUpperCase() + period.slice(1)} View`} className="h-full">
       <div className="flex flex-wrap gap-4 items-center mb-4">
-        <select value={selectedHub} onChange={e => setSelectedHub(e.target.value)} className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-sm min-w-[200px]">
+        <select value={selectedHub} onChange={e => setSelectedHub(e.target.value)} className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-sm w-full sm:min-w-[200px]">
           {hubs.map(h => <option key={h.id} value={h.id}>{h.name}</option>)}
         </select>
         <div className="flex gap-2">
@@ -137,7 +137,7 @@ export function AIPLCopilot() {
             </div>
             <h4 className="font-semibold text-gray-900 dark:text-white">Revenue Breakdown</h4>
           </div>
-          <ResponsiveContainer width="100%" height={280}>
+          <ResponsiveContainer width="100%" height={220}>
             <PieChart>
               <Pie
                 data={revenueData}
@@ -168,7 +168,7 @@ export function AIPLCopilot() {
             </div>
             <h4 className="font-semibold text-gray-900 dark:text-white">Cost Breakdown</h4>
           </div>
-          <ResponsiveContainer width="100%" height={280}>
+          <ResponsiveContainer width="100%" height={220}>
             <PieChart>
               <Pie
                 data={costData}
@@ -222,7 +222,7 @@ export function AIPLCopilot() {
             </div>
             <h4 className="font-semibold text-gray-900 dark:text-white">Cost Structure Analysis</h4>
           </div>
-          <ResponsiveContainer width="100%" height={280}>
+          <ResponsiveContainer width="100%" height={220}>
             <BarChart data={costData} layout="vertical">
               <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
               <XAxis type="number" tickFormatter={v => `₹${(v/100000).toFixed(1)}L`} tick={{ fontSize: 10 }} />
@@ -248,27 +248,31 @@ export function AIPLCopilot() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <h5 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Revenue</h5>
-            <Table
-              columns={[
-                { key: 'name', header: 'Item', className: 'text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider' },
-                { key: 'value', header: 'Amount', className: 'text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider', render: (v: number) => <span className="text-emerald-600 dark:text-emerald-400 font-medium">₹{(v/100000).toFixed(1)}L</span> },
-                { key: 'pct', header: '% of Total', className: 'text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider', render: (v: number) => `${(v / hubFin.revenue.total * 100).toFixed(1)}%` },
-              ]}
-              data={revenueData.map(d => ({ name: d.name, value: d.value, pct: d.value }))}
-              className="text-sm"
-            />
+            <div className="overflow-x-auto">
+              <Table
+                columns={[
+                  { key: 'name', header: 'Item', className: 'text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider' },
+                  { key: 'value', header: 'Amount', className: 'text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider', render: (v: number) => <span className="text-emerald-600 dark:text-emerald-400 font-medium">₹{(v/100000).toFixed(1)}L</span> },
+                  { key: 'pct', header: '% of Total', className: 'text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider', render: (v: number) => `${(v / hubFin.revenue.total * 100).toFixed(1)}%` },
+                ]}
+                data={revenueData.map(d => ({ name: d.name, value: d.value, pct: d.value }))}
+                className="text-sm"
+              />
+            </div>
           </div>
           <div>
             <h5 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Costs</h5>
-            <Table
-              columns={[
-                { key: 'name', header: 'Item', className: 'text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider' },
-                { key: 'value', header: 'Amount', className: 'text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider', render: (v: number) => <span className="text-red-600 dark:text-red-400 font-medium">₹{(v/100000).toFixed(1)}L</span> },
-                { key: 'pct', header: '% of Total', className: 'text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider', render: (v: number) => `${(v / hubFin.costs.total * 100).toFixed(1)}%` },
-              ]}
-              data={costData.map(d => ({ name: d.name, value: d.value, pct: d.value }))}
-              className="text-sm"
-            />
+            <div className="overflow-x-auto">
+              <Table
+                columns={[
+                  { key: 'name', header: 'Item', className: 'text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider' },
+                  { key: 'value', header: 'Amount', className: 'text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider', render: (v: number) => <span className="text-red-600 dark:text-red-400 font-medium">₹{(v/100000).toFixed(1)}L</span> },
+                  { key: 'pct', header: '% of Total', className: 'text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider', render: (v: number) => `${(v / hubFin.costs.total * 100).toFixed(1)}%` },
+                ]}
+                data={costData.map(d => ({ name: d.name, value: d.value, pct: d.value }))}
+                className="text-sm"
+              />
+            </div>
           </div>
         </div>
       </div>

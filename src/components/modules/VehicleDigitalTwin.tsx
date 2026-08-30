@@ -69,7 +69,7 @@ export function VehicleDigitalTwin() {
   return (
     <Card title="Vehicle Digital Twin" subtitle={`${vehicles.length} vehicles • Avg Health: ${avgHealth}/100`} className="h-full">
       <div className="flex flex-wrap gap-4 items-center mb-4">
-        <div className="flex-1 min-w-[200px] relative">
+        <div className="flex-1 w-full sm:min-w-[200px] relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input
             type="text"
@@ -86,7 +86,7 @@ export function VehicleDigitalTwin() {
           <option value="medium">Medium</option>
           <option value="low">Low</option>
         </select>
-        <select value={hubFilter} onChange={e => setHubFilter(e.target.value)} className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-sm min-w-[150px] focus:ring-2 focus:ring-blue-500/40 transition-all">
+        <select value={hubFilter} onChange={e => setHubFilter(e.target.value)} className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-sm w-full sm:min-w-[150px] focus:ring-2 focus:ring-blue-500/40 transition-all">
           <option value="all">All Hubs</option>
           {hubs.map(h => <option key={h} value={h}>Hub {h.replace('hub_', '')}</option>)}
         </select>
@@ -161,7 +161,7 @@ function VehicleDetailView({ vehicle, onClose, onNavigate }: { vehicle: Vehicle;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm animate-fade-in p-4" onClick={onClose}>
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200/60 dark:border-gray-700/60 animate-fade-in-scale w-full max-w-4xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200/60 dark:border-gray-700/60 animate-fade-in-scale w-full max-w-full lg:max-w-4xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
         <div className="sticky top-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 p-4 flex items-center justify-between z-10">
           <div className="flex items-center gap-4">
             <button onClick={() => onNavigate(-1)} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-all"><ChevronLeft className="w-5 h-5" /></button>
@@ -282,7 +282,7 @@ function VehicleDetailView({ vehicle, onClose, onNavigate }: { vehicle: Vehicle;
               ].map(item => (
                 <div key={item.label} className="flex items-center justify-between">
                   <span className="text-sm text-gray-700 dark:text-gray-300">{item.label}</span>
-                  <div className="w-64">
+                  <div className="w-full max-w-[256px]">
                     <div className="relative h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                       <div
                         className={`absolute inset-y-0 left-0 rounded-full transition-all duration-500 ${
@@ -319,7 +319,7 @@ function VehicleDetailView({ vehicle, onClose, onNavigate }: { vehicle: Vehicle;
                   ? '⚠️ MEDIUM RISK: Plan maintenance within 30 days. Consider during next scheduled service.'
                   : '✅ LOW RISK: Vehicle operating within normal parameters. Continue standard maintenance schedule.'}
               </p>
-              <div className="mt-3 flex gap-3">
+              <div className="mt-3 flex flex-wrap gap-3">
                 <button className="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl text-sm shadow-sm hover:shadow-md transition-all font-medium">Schedule Maintenance</button>
                 <button className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-all">View Service History</button>
                 <button className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-all">Order Parts</button>

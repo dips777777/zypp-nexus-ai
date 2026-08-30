@@ -325,7 +325,7 @@ function CityDetailView({ city, onClose }: { city: CityExpansionScore; onClose: 
         </div>
       </div>
 
-      <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 flex gap-3">
+      <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 flex flex-wrap gap-3">
         <button className="px-6 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl shadow-sm hover:shadow-md transition-all flex items-center gap-2">
           <ArrowRight className="w-4 h-4" />
           Initiate Feasibility Study
