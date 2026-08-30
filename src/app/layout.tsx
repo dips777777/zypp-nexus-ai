@@ -31,13 +31,9 @@ export const viewport: Viewport = {
 const forceLightMode = `
 (() => {
   document.documentElement.classList.remove('dark');
-  document.documentElement.style.colorScheme = 'only light';
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(r => r.forEach(s => s.unregister()));
-  }
-  if (typeof caches !== 'undefined') {
-    caches.keys().then(n => n.forEach(k => caches.delete(k)));
-  }
+  document.documentElement.style.colorScheme = 'light';
+  document.documentElement.style.backgroundColor = '#f9fafb';
+  document.body.style.backgroundColor = '#f9fafb';
 })();
 `;
 
@@ -52,7 +48,7 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
         <meta name="color-scheme" content="only light" />
         <script dangerouslySetInnerHTML={{ __html: forceLightMode }} />
       </head>
-      <body className="min-h-full flex flex-col bg-gray-50 text-gray-900">
+      <body className="min-h-full flex flex-col bg-gray-50 text-gray-900 sm:bg-gray-50 lg:bg-gray-50" style={{ backgroundColor: '#f9fafb' }}>
         {children}
       </body>
     </html>

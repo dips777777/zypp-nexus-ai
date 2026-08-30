@@ -58,7 +58,7 @@ export function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 lg:bg-gray-50 sm:bg-gray-50">
       {/* Desktop Sidebar */}
       <aside
         className="fixed inset-y-0 left-0 z-40 bg-white border-r border-gray-200 transition-all duration-300 flex-col hidden lg:flex"

@@ -5,7 +5,7 @@
 :root {
   --background: #f9fafb;
   --foreground: #111827;
-  color-scheme: only light;
+  color-scheme: light;
 }
 @theme inline {
   --color-background: var(--background);
@@ -17,6 +17,7 @@ body {
   background: #f9fafb;
   color: #111827;
   font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
 }
 /* Custom scrollbar */
 ::-webkit-scrollbar {
@@ -154,6 +155,9 @@ main {
   .stagger-children > * {
     animation-delay: 0ms !important;
   }
+  html, body {
+    background-color: #f9fafb !important;
+  }
 }
 /* Prevent horizontal scroll on mobile */
 html, body {
@@ -163,6 +167,9 @@ html, body {
 @media (max-width: 768px) {
   button, a, input, select {
     min-height: 44px;
+  }
+  html, body {
+    background-color: #f9fafb !important;
   }
 }
 /* Card hover lift effect */
