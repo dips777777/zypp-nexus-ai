@@ -28,7 +28,16 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-const forceLightMode = `(() => { document.documentElement.classList.remove('dark'); document.documentElement.style.colorScheme = 'light'; })();`;
+const forceLightMode = `
+(() => {
+  document.documentElement.classList.remove('dark');
+  document.documentElement.style.colorScheme = 'light';
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(r => r.forEach(s => s.unregister()));
+  }
+  caches.keys().then(n => n.forEach(k => caches.delete(k)));
+})();
+`;
 
 export default function RootLayout({ children }: React.PropsWithChildren) {
   return (
