@@ -74,10 +74,10 @@ export function LiveFleetIntelligence() {
   }, [vehicles, statusFilter, hubFilter, searchQuery, sortConfig]);
 
   const getBatteryColor = (battery: number) => {
-    if (battery > 60) return 'text-emerald-600 dark:text-emerald-400';
-    if (battery > 30) return 'text-amber-600 dark:text-amber-400';
-    if (battery > 15) return 'text-orange-600 dark:text-orange-400';
-    return 'text-red-600 dark:text-red-400';
+    if (battery > 60) return 'text-emerald-600';
+    if (battery > 30) return 'text-amber-600';
+    if (battery > 15) return 'text-orange-600';
+    return 'text-red-600';
   };
 
   const hubs = [...new Set(vehicles.map(v => v.hubId))].sort();
@@ -87,7 +87,7 @@ export function LiveFleetIntelligence() {
       <Card title="Live Fleet Intelligence" subtitle="Loading vehicle data...">
         <div className="space-y-2.5">
           {[1, 2, 3, 4, 5].map(i => (
-            <div key={i} className="h-12 bg-gray-100 dark:bg-gray-700/50 rounded-xl animate-pulse" />
+            <div key={i} className="h-12 bg-gray-100 rounded-xl animate-pulse" />
           ))}
         </div>
       </Card>
@@ -112,13 +112,13 @@ export function LiveFleetIntelligence() {
             placeholder="Search registration, model, ID..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 border border-gray-200/60 dark:border-gray-700/60 rounded-xl bg-gray-50 dark:bg-gray-800/60 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 dark:focus:border-blue-500 transition-all placeholder:text-gray-400"
+            className="w-full pl-10 pr-4 py-2.5 border border-gray-200/60 rounded-xl bg-gray-50 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400:border-blue-500 transition-all placeholder:text-gray-400"
           />
         </div>
         <select
           value={statusFilter}
           onChange={e => setStatusFilter(e.target.value)}
-          className="px-3 py-2.5 border border-gray-200/60 dark:border-gray-700/60 rounded-xl bg-gray-50 dark:bg-gray-800/60 text-sm w-full sm:min-w-[150px] focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all"
+          className="px-3 py-2.5 border border-gray-200/60 rounded-xl bg-gray-50 text-sm w-full sm:min-w-[150px] focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all"
         >
           <option value="all">All Statuses</option>
           {Object.entries(STATUS_CONFIG).map(([key, config]) => (
@@ -128,7 +128,7 @@ export function LiveFleetIntelligence() {
         <select
           value={hubFilter}
           onChange={e => setHubFilter(e.target.value)}
-          className="px-3 py-2.5 border border-gray-200/60 dark:border-gray-700/60 rounded-xl bg-gray-50 dark:bg-gray-800/60 text-sm w-full sm:min-w-[150px] focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all"
+          className="px-3 py-2.5 border border-gray-200/60 rounded-xl bg-gray-50 text-sm w-full sm:min-w-[150px] focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all"
         >
           <option value="all">All Hubs</option>
           {hubs.map(hubId => (
@@ -222,39 +222,39 @@ export function LiveFleetIntelligence() {
 
       {selectedVehicle && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 animate-fade-in" onClick={() => setSelectedVehicle(null)}>
-          <div className="bg-white dark:bg-gray-800/95 backdrop-blur-md rounded-2xl p-6 w-full max-w-md max-h-[80vh] overflow-y-auto shadow-2xl border border-gray-200/60 dark:border-gray-700/60 animate-fade-in-scale" onClick={e => e.stopPropagation()}>
+          <div className="bg-white backdrop-blur-md rounded-2xl p-6 w-full max-w-md max-h-[80vh] overflow-y-auto shadow-2xl border border-gray-200/60 animate-fade-in-scale" onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-5">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center">
-                  <Truck className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
+                  <Truck className="w-5 h-5 text-blue-600" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">Vehicle Details</h3>
+                  <h3 className="text-lg font-bold text-gray-900">Vehicle Details</h3>
                   <p className="text-xs text-gray-400 font-mono">{selectedVehicle.registrationNumber}</p>
                 </div>
               </div>
-              <button onClick={() => setSelectedVehicle(null)} className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-700/50 flex items-center justify-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+              <button onClick={() => setSelectedVehicle(null)} className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-400 hover:text-gray-600:text-gray-300 transition-colors">
                 <span className="text-lg leading-none">&times;</span>
               </button>
             </div>
             <div className="space-y-3 text-sm">
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-gray-50 dark:bg-gray-700/30 rounded-xl p-3"><span className="text-xs text-gray-400 block mb-1">Model</span><span className="font-semibold text-gray-900 dark:text-white">{selectedVehicle.model}</span></div>
-                <div className="bg-gray-50 dark:bg-gray-700/30 rounded-xl p-3"><span className="text-xs text-gray-400 block mb-1">Hub</span><span className="font-semibold text-gray-900 dark:text-white">Hub {selectedVehicle.hubId.replace('hub_', '')}</span></div>
-                <div className="bg-gray-50 dark:bg-gray-700/30 rounded-xl p-3"><span className="text-xs text-gray-400 block mb-1">Status</span><span className="font-semibold text-gray-900 dark:text-white capitalize">{selectedVehicle.status.replace('_', ' ')}</span></div>
-                <div className="bg-gray-50 dark:bg-gray-700/30 rounded-xl p-3"><span className="text-xs text-gray-400 block mb-1">Battery</span><span className={`font-bold text-lg ${getBatteryColor(selectedVehicle.currentBattery)}`}>{selectedVehicle.currentBattery}%</span></div>
-                <div className="bg-gray-50 dark:bg-gray-700/30 rounded-xl p-3"><span className="text-xs text-gray-400 block mb-1">Health Score</span><span className="font-bold text-lg text-gray-900 dark:text-white">{selectedVehicle.healthScore}/100</span></div>
-                <div className="bg-gray-50 dark:bg-gray-700/30 rounded-xl p-3"><span className="text-xs text-gray-400 block mb-1">Failure Risk</span><Badge variant={
+                <div className="bg-gray-50 rounded-xl p-3"><span className="text-xs text-gray-400 block mb-1">Model</span><span className="font-semibold text-gray-900">{selectedVehicle.model}</span></div>
+                <div className="bg-gray-50 rounded-xl p-3"><span className="text-xs text-gray-400 block mb-1">Hub</span><span className="font-semibold text-gray-900">Hub {selectedVehicle.hubId.replace('hub_', '')}</span></div>
+                <div className="bg-gray-50 rounded-xl p-3"><span className="text-xs text-gray-400 block mb-1">Status</span><span className="font-semibold text-gray-900 capitalize">{selectedVehicle.status.replace('_', ' ')}</span></div>
+                <div className="bg-gray-50 rounded-xl p-3"><span className="text-xs text-gray-400 block mb-1">Battery</span><span className={`font-bold text-lg ${getBatteryColor(selectedVehicle.currentBattery)}`}>{selectedVehicle.currentBattery}%</span></div>
+                <div className="bg-gray-50 rounded-xl p-3"><span className="text-xs text-gray-400 block mb-1">Health Score</span><span className="font-bold text-lg text-gray-900">{selectedVehicle.healthScore}/100</span></div>
+                <div className="bg-gray-50 rounded-xl p-3"><span className="text-xs text-gray-400 block mb-1">Failure Risk</span><Badge variant={
                   selectedVehicle.predictedFailureRisk === 'critical' ? 'danger' :
                   selectedVehicle.predictedFailureRisk === 'high' ? 'warning' :
                   selectedVehicle.predictedFailureRisk === 'medium' ? 'info' : 'success'
                 }>{selectedVehicle.predictedFailureRisk}</Badge></div>
-                <div className="bg-gray-50 dark:bg-gray-700/30 rounded-xl p-3"><span className="text-xs text-gray-400 block mb-1">Total Distance</span><span className="font-semibold text-gray-900 dark:text-white">{selectedVehicle.totalDistance.toLocaleString()} km</span></div>
-                <div className="bg-gray-50 dark:bg-gray-700/30 rounded-xl p-3"><span className="text-xs text-gray-400 block mb-1">Repairs</span><span className="font-semibold text-gray-900 dark:text-white">{selectedVehicle.repairCount}</span></div>
-                <div className="col-span-2 bg-gray-50 dark:bg-gray-700/30 rounded-xl p-3"><span className="text-xs text-gray-400 block mb-1">Last Service</span><span className="font-semibold text-gray-900 dark:text-white">{new Date(selectedVehicle.lastServiceDate).toLocaleDateString()}</span></div>
-                <div className="col-span-2 bg-gray-50 dark:bg-gray-700/30 rounded-xl p-3"><span className="text-xs text-gray-400 block mb-1">GPS Location</span><span className="font-mono text-xs text-gray-600 dark:text-gray-300">{selectedVehicle.location[0].toFixed(4)}, {selectedVehicle.location[1].toFixed(4)}</span></div>
+                <div className="bg-gray-50 rounded-xl p-3"><span className="text-xs text-gray-400 block mb-1">Total Distance</span><span className="font-semibold text-gray-900">{selectedVehicle.totalDistance.toLocaleString()} km</span></div>
+                <div className="bg-gray-50 rounded-xl p-3"><span className="text-xs text-gray-400 block mb-1">Repairs</span><span className="font-semibold text-gray-900">{selectedVehicle.repairCount}</span></div>
+                <div className="col-span-2 bg-gray-50 rounded-xl p-3"><span className="text-xs text-gray-400 block mb-1">Last Service</span><span className="font-semibold text-gray-900">{new Date(selectedVehicle.lastServiceDate).toLocaleDateString()}</span></div>
+                <div className="col-span-2 bg-gray-50 rounded-xl p-3"><span className="text-xs text-gray-400 block mb-1">GPS Location</span><span className="font-mono text-xs text-gray-600">{selectedVehicle.location[0].toFixed(4)}, {selectedVehicle.location[1].toFixed(4)}</span></div>
                 {selectedVehicle.assignedRiderId && (
-                  <div className="col-span-2 bg-blue-50 dark:bg-blue-900/10 rounded-xl p-3"><span className="text-xs text-blue-600 dark:text-blue-400 block mb-1">Assigned Rider</span><span className="font-semibold text-gray-900 dark:text-white">{selectedVehicle.assignedRiderId.replace(`rider_${selectedVehicle.hubId}_`, 'Rider #')}</span></div>
+                  <div className="col-span-2 bg-blue-50 rounded-xl p-3"><span className="text-xs text-blue-600 block mb-1">Assigned Rider</span><span className="font-semibold text-gray-900">{selectedVehicle.assignedRiderId.replace(`rider_${selectedVehicle.hubId}_`, 'Rider #')}</span></div>
                 )}
               </div>
             </div>

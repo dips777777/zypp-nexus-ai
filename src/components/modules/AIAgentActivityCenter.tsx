@@ -18,21 +18,21 @@ const AGENT_CONFIG = {
 } as const;
 
 const COLOR_MAP: Record<string, { bg: string; text: string; border: string; gradient: string; iconBg: string }> = {
-  blue: { bg: 'bg-blue-50 dark:bg-blue-900/20', text: 'text-blue-600', border: 'border-blue-200/40 dark:border-blue-800/30', gradient: 'from-blue-500/10 to-blue-600/5 dark:from-blue-500/20 dark:to-blue-600/10', iconBg: 'bg-blue-100 dark:bg-blue-800/40' },
-  orange: { bg: 'bg-orange-50 dark:bg-orange-900/20', text: 'text-orange-600', border: 'border-orange-200/40 dark:border-orange-800/30', gradient: 'from-orange-500/10 to-orange-600/5 dark:from-orange-500/20 dark:to-orange-600/10', iconBg: 'bg-orange-100 dark:bg-orange-800/40' },
-  green: { bg: 'bg-green-50 dark:bg-green-900/20', text: 'text-green-600', border: 'border-green-200/40 dark:border-green-800/30', gradient: 'from-green-500/10 to-green-600/5 dark:from-green-500/20 dark:to-green-600/10', iconBg: 'bg-green-100 dark:bg-green-800/40' },
-  purple: { bg: 'bg-purple-50 dark:bg-purple-900/20', text: 'text-purple-600', border: 'border-purple-200/40 dark:border-purple-800/30', gradient: 'from-purple-500/10 to-purple-600/5 dark:from-purple-500/20 dark:to-purple-600/10', iconBg: 'bg-purple-100 dark:bg-purple-800/40' },
-  yellow: { bg: 'bg-yellow-50 dark:bg-yellow-900/20', text: 'text-yellow-600', border: 'border-yellow-200/40 dark:border-yellow-800/30', gradient: 'from-yellow-500/10 to-yellow-600/5 dark:from-yellow-500/20 dark:to-yellow-600/10', iconBg: 'bg-yellow-100 dark:bg-yellow-800/40' },
-  pink: { bg: 'bg-pink-50 dark:bg-pink-900/20', text: 'text-pink-600', border: 'border-pink-200/40 dark:border-pink-800/30', gradient: 'from-pink-500/10 to-pink-600/5 dark:from-pink-500/20 dark:to-pink-600/10', iconBg: 'bg-pink-100 dark:bg-pink-800/40' },
-  cyan: { bg: 'bg-cyan-50 dark:bg-cyan-900/20', text: 'text-cyan-600', border: 'border-cyan-200/40 dark:border-cyan-800/30', gradient: 'from-cyan-500/10 to-cyan-600/5 dark:from-cyan-500/20 dark:to-cyan-600/10', iconBg: 'bg-cyan-100 dark:bg-cyan-800/40' },
-  indigo: { bg: 'bg-indigo-50 dark:bg-indigo-900/20', text: 'text-indigo-600', border: 'border-indigo-200/40 dark:border-indigo-800/30', gradient: 'from-indigo-500/10 to-indigo-600/5 dark:from-indigo-500/20 dark:to-indigo-600/10', iconBg: 'bg-indigo-100 dark:bg-indigo-800/40' },
+  blue: { bg: 'bg-blue-50', text: 'text-blue-600', border: 'border-blue-200/40', gradient: 'from-blue-500/10 to-blue-600/5', iconBg: 'bg-blue-100' },
+  orange: { bg: 'bg-orange-50', text: 'text-orange-600', border: 'border-orange-200/40', gradient: 'from-orange-500/10 to-orange-600/5', iconBg: 'bg-orange-100' },
+  green: { bg: 'bg-green-50', text: 'text-green-600', border: 'border-green-200/40', gradient: 'from-green-500/10 to-green-600/5', iconBg: 'bg-green-100' },
+  purple: { bg: 'bg-purple-50', text: 'text-purple-600', border: 'border-purple-200/40', gradient: 'from-purple-500/10 to-purple-600/5', iconBg: 'bg-purple-100' },
+  yellow: { bg: 'bg-yellow-50', text: 'text-yellow-600', border: 'border-yellow-200/40', gradient: 'from-yellow-500/10 to-yellow-600/5', iconBg: 'bg-yellow-100' },
+  pink: { bg: 'bg-pink-50', text: 'text-pink-600', border: 'border-pink-200/40', gradient: 'from-pink-500/10 to-pink-600/5', iconBg: 'bg-pink-100' },
+  cyan: { bg: 'bg-cyan-50', text: 'text-cyan-600', border: 'border-cyan-200/40', gradient: 'from-cyan-500/10 to-cyan-600/5', iconBg: 'bg-cyan-100' },
+  indigo: { bg: 'bg-indigo-50', text: 'text-indigo-600', border: 'border-indigo-200/40', gradient: 'from-indigo-500/10 to-indigo-600/5', iconBg: 'bg-indigo-100' },
 };
 
 const IMPACT_STYLES: Record<string, string> = {
-  critical: 'border-l-4 border-l-red-500 bg-red-50/30 dark:bg-red-900/10',
-  high: 'border-l-4 border-l-amber-500 bg-amber-50/30 dark:bg-amber-900/10',
-  medium: 'border-l-4 border-l-blue-500 bg-blue-50/30 dark:bg-blue-900/10',
-  low: 'border-l-4 border-l-gray-300 dark:border-l-gray-600',
+  critical: 'border-l-4 border-l-red-500 bg-red-50/30',
+  high: 'border-l-4 border-l-amber-500 bg-amber-50/30',
+  medium: 'border-l-4 border-l-blue-500 bg-blue-50/30',
+  low: 'border-l-4 border-l-gray-300',
 };
 
 export function AIAgentActivityCenter() {
@@ -105,7 +105,7 @@ export function AIAgentActivityCenter() {
       <Card title="AI Agent Activity Center" subtitle="Live log of autonomous agent actions">
         <div className="space-y-3">
           {[1, 2, 3, 4, 5].map(i => (
-            <div key={i} className="h-16 bg-gray-100 dark:bg-gray-700 rounded-xl animate-pulse" />
+            <div key={i} className="h-16 bg-gray-100 rounded-xl animate-pulse" />
           ))}
         </div>
       </Card>
@@ -122,22 +122,22 @@ export function AIAgentActivityCenter() {
             placeholder="Search actions, targets, details..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-sm"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl bg-white text-sm"
           />
         </div>
-        <select value={agentFilter} onChange={e => setAgentFilter(e.target.value)} className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-sm w-full sm:min-w-[160px]">
+        <select value={agentFilter} onChange={e => setAgentFilter(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-xl bg-white text-sm w-full sm:min-w-[160px]">
           <option value="all">All Agents</option>
           {Object.entries(AGENT_CONFIG).map(([key, config]) => (
             <option key={key} value={key}>{config.label} ({agentStats[key]?.count || 0})</option>
           ))}
         </select>
-        <select value={impactFilter} onChange={e => setImpactFilter(e.target.value)} className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-sm">
+        <select value={impactFilter} onChange={e => setImpactFilter(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-xl bg-white text-sm">
           <option value="all">All Impact</option>
           <option value="high">High</option>
           <option value="medium">Medium</option>
           <option value="low">Low</option>
         </select>
-        <select value={timeFilter} onChange={e => setTimeFilter(e.target.value as any)} className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-sm">
+        <select value={timeFilter} onChange={e => setTimeFilter(e.target.value as any)} className="px-3 py-2 border border-gray-300 rounded-xl bg-white text-sm">
           <option value="1h">Last Hour</option>
           <option value="6h">Last 6 Hours</option>
           <option value="24h">Last 24 Hours</option>
@@ -148,9 +148,9 @@ export function AIAgentActivityCenter() {
           role="switch"
           aria-checked={autoRefresh}
           onClick={() => setAutoRefresh(!autoRefresh)}
-          className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"
+          className="flex items-center gap-2 text-sm text-gray-700"
         >
-          <span className="relative inline-flex h-5 w-10 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-800"
+          <span className="relative inline-flex h-5 w-10 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2:ring-offset-gray-800"
             style={{ backgroundColor: autoRefresh ? '#3b82f6' : '#d1d5db' }}>
             <span className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${autoRefresh ? 'translate-x-5' : 'translate-x-0'}`} />
           </span>
@@ -172,7 +172,7 @@ export function AIAgentActivityCenter() {
             <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-md shadow-violet-500/20">
               <Bot className="w-4 h-4 text-white" />
             </div>
-            <h4 className="font-semibold text-gray-900 dark:text-white">Agent Status</h4>
+            <h4 className="font-semibold text-gray-900">Agent Status</h4>
           </div>
           <div className="space-y-2">
             {Object.entries(AGENT_CONFIG).map(([key, config]) => {
@@ -192,7 +192,7 @@ export function AIAgentActivityCenter() {
                   </div>
                   <div className="grid grid-cols-3 gap-2 text-xs">
                     <div className="text-center">
-                      <p className="font-bold text-gray-900 dark:text-white">{stat.count}</p>
+                      <p className="font-bold text-gray-900">{stat.count}</p>
                       <p className="text-gray-500">Actions</p>
                     </div>
                     <div className="text-center">
@@ -212,12 +212,12 @@ export function AIAgentActivityCenter() {
         </div>
 
         {/* Activity Feed */}
-        <div className="lg:col-span-2 space-y-2 max-h-[70vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
+        <div className="lg:col-span-2 space-y-2 max-h-[70vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-md shadow-blue-500/20">
               <Radio className="w-4 h-4 text-white" />
             </div>
-            <h4 className="font-semibold text-gray-900 dark:text-white">Recent Activity</h4>
+            <h4 className="font-semibold text-gray-900">Recent Activity</h4>
             <span className="ml-auto flex items-center gap-1.5 text-xs text-gray-500">
               <span className="relative flex h-2 w-2">
                 <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -245,10 +245,10 @@ export function AIAgentActivityCenter() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between">
-                          <p className="font-medium text-gray-900 dark:text-white">{config.label}</p>
+                          <p className="font-medium text-gray-900">{config.label}</p>
                           <span className="text-xs text-gray-500">{timeAgo}m ago</span>
                         </div>
-                        <p className="text-sm text-gray-700 dark:text-gray-300 mt-1">{activity.action}</p>
+                        <p className="text-sm text-gray-700 mt-1">{activity.action}</p>
                         <div className="flex items-center gap-3 mt-2 text-xs text-gray-500">
                           <span className="flex items-center gap-1">
                             <MapPin className="w-3 h-3" />

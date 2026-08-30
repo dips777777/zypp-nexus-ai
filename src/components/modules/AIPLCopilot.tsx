@@ -79,7 +79,7 @@ export function AIPLCopilot() {
       <Card title="AI P&L Copilot" subtitle="Loading financial data...">
         <div className="space-y-3">
           {[1, 2, 3, 4].map(i => (
-            <div key={i} className="h-20 rounded-xl animate-pulse bg-gray-100 dark:bg-gray-700/50" />
+            <div key={i} className="h-20 rounded-xl animate-pulse bg-gray-100" />
           ))}
         </div>
       </Card>
@@ -106,7 +106,7 @@ export function AIPLCopilot() {
   return (
     <Card title="AI P&L Copilot" subtitle={`${hubData?.name} • ${period.charAt(0).toUpperCase() + period.slice(1)} View`} className="h-full">
       <div className="flex flex-wrap gap-4 items-center mb-4">
-        <select value={selectedHub} onChange={e => setSelectedHub(e.target.value)} className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-sm w-full sm:min-w-[200px]">
+        <select value={selectedHub} onChange={e => setSelectedHub(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-xl bg-white text-sm w-full sm:min-w-[200px]">
           {hubs.map(h => <option key={h.id} value={h.id}>{h.name}</option>)}
         </select>
         <div className="flex gap-2">
@@ -114,7 +114,7 @@ export function AIPLCopilot() {
             <button
               key={p}
               onClick={() => setPeriod(p)}
-              className={`px-3 py-1.5 text-sm rounded-xl shadow-sm transition-all ${period === p ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md hover:shadow-lg' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+              className={`px-3 py-1.5 text-sm rounded-xl shadow-sm transition-all ${period === p ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md hover:shadow-lg' : 'bg-gray-100 text-gray-700 hover:bg-gray-200:bg-gray-600'}`}
             >
               {p.charAt(0).toUpperCase() + p.slice(1)}
             </button>
@@ -130,12 +130,12 @@ export function AIPLCopilot() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <div className="bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 rounded-xl p-4 shadow-sm animate-fade-in">
+        <div className="bg-white border border-gray-200/60 rounded-xl p-4 shadow-sm animate-fade-in">
           <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 rounded-xl bg-emerald-100 dark:bg-emerald-900/30">
-              <DollarSign className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+            <div className="p-2 rounded-xl bg-emerald-100">
+              <DollarSign className="w-4 h-4 text-emerald-600" />
             </div>
-            <h4 className="font-semibold text-gray-900 dark:text-white">Revenue Breakdown</h4>
+            <h4 className="font-semibold text-gray-900">Revenue Breakdown</h4>
           </div>
           <ResponsiveContainer width="100%" height={220}>
             <PieChart>
@@ -161,12 +161,12 @@ export function AIPLCopilot() {
           </ResponsiveContainer>
         </div>
 
-        <div className="bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 rounded-xl p-4 shadow-sm animate-fade-in">
+        <div className="bg-white border border-gray-200/60 rounded-xl p-4 shadow-sm animate-fade-in">
           <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 rounded-xl bg-red-100 dark:bg-red-900/30">
-              <CreditCard className="w-4 h-4 text-red-600 dark:text-red-400" />
+            <div className="p-2 rounded-xl bg-red-100">
+              <CreditCard className="w-4 h-4 text-red-600" />
             </div>
-            <h4 className="font-semibold text-gray-900 dark:text-white">Cost Breakdown</h4>
+            <h4 className="font-semibold text-gray-900">Cost Breakdown</h4>
           </div>
           <ResponsiveContainer width="100%" height={220}>
             <PieChart>
@@ -196,31 +196,31 @@ export function AIPLCopilot() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         <div>
           <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 rounded-xl bg-blue-100 dark:bg-blue-900/30">
-              <Lightbulb className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+            <div className="p-2 rounded-xl bg-blue-100">
+              <Lightbulb className="w-4 h-4 text-blue-600" />
             </div>
-            <h4 className="font-semibold text-gray-900 dark:text-white">AI Financial Insights</h4>
+            <h4 className="font-semibold text-gray-900">AI Financial Insights</h4>
           </div>
           <div className="space-y-3 stagger-children">
             {aiInsights.map((insight, idx) => (
-              <div key={idx} className="bg-gradient-to-r from-blue-50/80 to-indigo-50/80 dark:from-blue-900/10 dark:to-indigo-900/10 border border-blue-200/40 dark:border-blue-800/30 rounded-xl p-4 animate-fade-in">
+              <div key={idx} className="bg-gradient-to-r from-blue-50/80 to-indigo-50/80 border border-blue-200/40 rounded-xl p-4 animate-fade-in">
                 <div className="flex gap-3">
-                  <div className="p-1.5 rounded-lg bg-blue-100 dark:bg-blue-900/40 shrink-0 h-fit">
-                    <Lightbulb className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                  <div className="p-1.5 rounded-lg bg-blue-100 shrink-0 h-fit">
+                    <Lightbulb className="w-3.5 h-3.5 text-blue-600" />
                   </div>
-                  <p className="text-sm text-gray-700 dark:text-gray-300">{insight}</p>
+                  <p className="text-sm text-gray-700">{insight}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 rounded-xl p-4 shadow-sm animate-fade-in">
+        <div className="bg-white border border-gray-200/60 rounded-xl p-4 shadow-sm animate-fade-in">
           <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 rounded-xl bg-violet-100 dark:bg-violet-900/30">
-              <BarChart2 className="w-4 h-4 text-violet-600 dark:text-violet-400" />
+            <div className="p-2 rounded-xl bg-violet-100">
+              <BarChart2 className="w-4 h-4 text-violet-600" />
             </div>
-            <h4 className="font-semibold text-gray-900 dark:text-white">Cost Structure Analysis</h4>
+            <h4 className="font-semibold text-gray-900">Cost Structure Analysis</h4>
           </div>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={costData} layout="vertical">
@@ -238,22 +238,22 @@ export function AIPLCopilot() {
         </div>
       </div>
 
-      <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+      <div className="border-t border-gray-200 pt-4">
         <div className="flex items-center gap-3 mb-3">
-          <div className="p-2 rounded-xl bg-amber-100 dark:bg-amber-900/30">
-            <Calculator className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+          <div className="p-2 rounded-xl bg-amber-100">
+            <Calculator className="w-4 h-4 text-amber-600" />
           </div>
-          <h4 className="font-semibold text-gray-900 dark:text-white">Detailed Financials</h4>
+          <h4 className="font-semibold text-gray-900">Detailed Financials</h4>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h5 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Revenue</h5>
+            <h5 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Revenue</h5>
             <div className="overflow-x-auto">
               <Table
                 columns={[
-                  { key: 'name', header: 'Item', className: 'text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider' },
-                  { key: 'value', header: 'Amount', className: 'text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider', render: (v: number) => <span className="text-emerald-600 dark:text-emerald-400 font-medium">₹{(v/100000).toFixed(1)}L</span> },
-                  { key: 'pct', header: '% of Total', className: 'text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider', render: (v: number) => `${(v / hubFin.revenue.total * 100).toFixed(1)}%` },
+                  { key: 'name', header: 'Item', className: 'text-xs font-semibold text-gray-500 uppercase tracking-wider' },
+                  { key: 'value', header: 'Amount', className: 'text-right text-xs font-semibold text-gray-500 uppercase tracking-wider', render: (v: number) => <span className="text-emerald-600 font-medium">₹{(v/100000).toFixed(1)}L</span> },
+                  { key: 'pct', header: '% of Total', className: 'text-right text-xs font-semibold text-gray-500 uppercase tracking-wider', render: (v: number) => `${(v / hubFin.revenue.total * 100).toFixed(1)}%` },
                 ]}
                 data={revenueData.map(d => ({ name: d.name, value: d.value, pct: d.value }))}
                 className="text-sm"
@@ -261,13 +261,13 @@ export function AIPLCopilot() {
             </div>
           </div>
           <div>
-            <h5 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Costs</h5>
+            <h5 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Costs</h5>
             <div className="overflow-x-auto">
               <Table
                 columns={[
-                  { key: 'name', header: 'Item', className: 'text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider' },
-                  { key: 'value', header: 'Amount', className: 'text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider', render: (v: number) => <span className="text-red-600 dark:text-red-400 font-medium">₹{(v/100000).toFixed(1)}L</span> },
-                  { key: 'pct', header: '% of Total', className: 'text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider', render: (v: number) => `${(v / hubFin.costs.total * 100).toFixed(1)}%` },
+                  { key: 'name', header: 'Item', className: 'text-xs font-semibold text-gray-500 uppercase tracking-wider' },
+                  { key: 'value', header: 'Amount', className: 'text-right text-xs font-semibold text-gray-500 uppercase tracking-wider', render: (v: number) => <span className="text-red-600 font-medium">₹{(v/100000).toFixed(1)}L</span> },
+                  { key: 'pct', header: '% of Total', className: 'text-right text-xs font-semibold text-gray-500 uppercase tracking-wider', render: (v: number) => `${(v / hubFin.costs.total * 100).toFixed(1)}%` },
                 ]}
                 data={costData.map(d => ({ name: d.name, value: d.value, pct: d.value }))}
                 className="text-sm"

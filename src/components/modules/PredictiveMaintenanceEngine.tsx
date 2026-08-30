@@ -59,7 +59,7 @@ export function PredictiveMaintenanceEngine() {
       <Card title="Predictive Maintenance Engine" subtitle="Loading predictions...">
         <div className="space-y-3">
           {[1, 2, 3, 4].map(i => (
-            <div key={i} className="h-20 bg-gray-100 dark:bg-gray-700 rounded-xl animate-pulse" />
+            <div key={i} className="h-20 bg-gray-100 rounded-xl animate-pulse" />
           ))}
         </div>
       </Card>
@@ -77,14 +77,14 @@ export function PredictiveMaintenanceEngine() {
               className={`px-3 py-1.5 text-sm font-medium transition-all ${
                 timeHorizon === h
                   ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl shadow-md'
-                  : 'bg-gray-100 dark:bg-gray-700/50 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+                  : 'bg-gray-100 rounded-xl hover:bg-gray-200:bg-gray-700 text-gray-700'
               }`}
             >
               {h}
             </button>
           ))}
         </div>
-        <select value={riskFilter} onChange={e => setRiskFilter(e.target.value)} className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-sm ml-auto">
+        <select value={riskFilter} onChange={e => setRiskFilter(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-xl bg-white text-sm ml-auto">
           <option value="all">All Risk Levels</option>
           <option value="critical">Critical</option>
           <option value="high">High</option>
@@ -103,25 +103,25 @@ export function PredictiveMaintenanceEngine() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-4">
-          <h4 className="font-semibold text-gray-900 dark:text-white">Critical & High Risk Vehicles</h4>
+          <h4 className="font-semibold text-gray-900">Critical & High Risk Vehicles</h4>
           <div className="space-y-2 max-h-96 overflow-y-auto stagger-children">
             {vehicles
               .filter(v => v.predictedFailureRisk === 'critical' || v.predictedFailureRisk === 'high')
               .sort((a, b) => a.healthScore - b.healthScore)
               .map(vehicle => (
-                <div key={vehicle.id} className={`bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 hover:border-blue-300 dark:hover:border-blue-700 transition-colors ${
+                <div key={vehicle.id} className={`bg-white border border-gray-200 rounded-xl p-4 hover:border-blue-300:border-blue-700 transition-colors ${
                   vehicle.predictedFailureRisk === 'critical'
-                    ? 'border-l-4 border-l-red-500 bg-red-50/50 dark:bg-red-900/5'
-                    : 'border-l-4 border-l-amber-500 bg-amber-50/50 dark:bg-amber-900/5'
+                    ? 'border-l-4 border-l-red-500 bg-red-50/50'
+                    : 'border-l-4 border-l-amber-500 bg-amber-50/50'
                 }`}>
                   <div className="flex flex-wrap items-center justify-between mb-2">
                     <div className="flex items-center gap-3">
-                      <span className="font-mono font-medium text-gray-900 dark:text-white">{vehicle.registrationNumber}</span>
+                      <span className="font-mono font-medium text-gray-900">{vehicle.registrationNumber}</span>
                       <Badge variant={getRiskColor(vehicle.predictedFailureRisk)}>{vehicle.predictedFailureRisk}</Badge>
                       <span className={`inline-flex items-center gap-1 text-xs font-medium px-1.5 py-0.5 rounded-full ${
                         vehicle.predictedFailureRisk === 'critical'
-                          ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-                          : 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400'
+                          ? 'bg-red-100 text-red-700'
+                          : 'bg-amber-100 text-amber-700'
                       }`}>
                         <span className={`w-1.5 h-1.5 rounded-full ${
                           vehicle.predictedFailureRisk === 'critical' ? 'bg-red-500 animate-pulse' : 'bg-amber-500'
@@ -134,7 +134,7 @@ export function PredictiveMaintenanceEngine() {
                       Health: {vehicle.healthScore}
                     </Badge>
                   </div>
-                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600 dark:text-gray-400">
+                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600">
                     <div><span className="font-medium">Battery:</span> <span className={vehicle.currentBattery < 20 ? 'text-red-600' : ''}>{vehicle.currentBattery}%</span></div>
                     <div><span className="font-medium">Distance:</span> {vehicle.totalDistance.toLocaleString()} km</div>
                     <div><span className="font-medium">Repairs:</span> {vehicle.repairCount}</div>
@@ -142,8 +142,8 @@ export function PredictiveMaintenanceEngine() {
                   </div>
                    <div className="mt-3 flex flex-wrap gap-2">
                     <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl px-4 py-1.5 text-xs font-medium hover:from-blue-700 hover:to-indigo-700 shadow-sm transition-all">Schedule Now</button>
-                    <button className="px-3 py-1.5 text-xs border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700">View Details</button>
-                    <button className="px-3 py-1.5 text-xs border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700">Order Parts</button>
+                    <button className="px-3 py-1.5 text-xs border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-100:bg-gray-700">View Details</button>
+                    <button className="px-3 py-1.5 text-xs border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-100:bg-gray-700">Order Parts</button>
                   </div>
                 </div>
               ))}
@@ -151,14 +151,14 @@ export function PredictiveMaintenanceEngine() {
         </div>
 
         <div className="space-y-4">
-          <h4 className="font-semibold text-gray-900 dark:text-white">Maintenance Schedule Recommendations</h4>
+          <h4 className="font-semibold text-gray-900">Maintenance Schedule Recommendations</h4>
           <div className="space-y-2 max-h-96 overflow-y-auto stagger-children">
             {vehicles
               .filter(v => v.totalDistance > 35000 && v.status !== 'maintenance' && v.predictedFailureRisk !== 'critical' && v.predictedFailureRisk !== 'high')
               .sort((a, b) => b.totalDistance - a.totalDistance)
               .slice(0, 20)
               .map(vehicle => (
-                <div key={vehicle.id} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-3">
+                <div key={vehicle.id} className="bg-white border border-gray-200 rounded-xl p-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <span className="font-mono font-medium text-sm">{vehicle.registrationNumber}</span>
@@ -176,8 +176,8 @@ export function PredictiveMaintenanceEngine() {
         </div>
       </div>
 
-      <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-        <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Maintenance Alerts</h4>
+      <div className="border-t border-gray-200 pt-4 mt-4">
+        <h4 className="font-semibold text-gray-900 mb-3">Maintenance Alerts</h4>
         <div className="overflow-x-auto">
           <Table
             columns={[

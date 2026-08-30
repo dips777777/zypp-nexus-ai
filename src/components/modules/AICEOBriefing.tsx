@@ -106,10 +106,10 @@ ${narrative.opportunities.map(o => `- ${o}`).join('\n')}
     return (
       <Card title="Executive Dashboard" subtitle="Generating your daily briefing...">
         <div className="space-y-4">
-          <div className="h-40 bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-700 dark:to-gray-800 rounded-2xl animate-pulse" />
+          <div className="h-40 bg-gradient-to-r from-gray-100 to-gray-50 rounded-2xl animate-pulse" />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
             {[1, 2, 3, 4, 5, 6].map(i => (
-              <div key={i} className="h-28 bg-gray-100 dark:bg-gray-700 rounded-xl animate-pulse" />
+              <div key={i} className="h-28 bg-gray-100 rounded-xl animate-pulse" />
             ))}
           </div>
         </div>
@@ -158,14 +158,14 @@ ${narrative.opportunities.map(o => `- ${o}`).join('\n')}
       </div>
 
       {/* Executive Summary */}
-      <div className="bg-gradient-to-r from-blue-50/80 to-indigo-50/80 dark:from-blue-900/10 dark:to-indigo-900/10 border border-blue-200/40 dark:border-blue-800/30 rounded-2xl p-6 mb-6">
+      <div className="bg-gradient-to-r from-blue-50/80 to-indigo-50/80 border border-blue-200/40 rounded-2xl p-6 mb-6">
         <div className="flex items-start gap-4">
           <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center flex-shrink-0 shadow-md shadow-blue-500/20">
             <Lightbulb className="w-5 h-5 text-white" />
           </div>
           <div className="flex-1">
-            <h3 className="font-bold text-gray-900 dark:text-white mb-2 tracking-tight">Executive Summary</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{narrative.summary}</p>
+            <h3 className="font-bold text-gray-900 mb-2 tracking-tight">Executive Summary</h3>
+            <p className="text-sm text-gray-600 leading-relaxed">{narrative.summary}</p>
           </div>
         </div>
       </div>
@@ -183,20 +183,20 @@ ${narrative.opportunities.map(o => `- ${o}`).join('\n')}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Top Priorities */}
         <div className="space-y-3">
-          <h4 className="font-bold text-gray-900 dark:text-white flex items-center gap-2 tracking-tight">
+          <h4 className="font-bold text-gray-900 flex items-center gap-2 tracking-tight">
             <Target className="w-5 h-5 text-blue-600" />
             Top Priorities Today
           </h4>
           <div className="space-y-2.5">
             {narrative.topPriorities.map((priority, idx) => (
-              <div key={idx} className="bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 rounded-xl p-4 hover:shadow-md transition-shadow duration-200">
+              <div key={idx} className="bg-white border border-gray-200/60 rounded-xl p-4 hover:shadow-md transition-shadow duration-200">
                 <div className="flex items-start gap-3">
                   <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center flex-shrink-0 shadow-sm">
                     <span className="font-bold text-white text-sm">{idx + 1}</span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-gray-900 dark:text-white text-sm">{priority.action}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">{priority.impact}</p>
+                    <p className="font-semibold text-gray-900 text-sm">{priority.action}</p>
+                    <p className="text-xs text-gray-500 mt-1 leading-relaxed">{priority.impact}</p>
                     <div className="flex items-center gap-2 mt-2">
                       <Badge variant="info">{priority.timeframe}</Badge>
                     </div>
@@ -210,30 +210,30 @@ ${narrative.opportunities.map(o => `- ${o}`).join('\n')}
         {/* Risks & Opportunities */}
         <div className="space-y-5">
           <div>
-            <h4 className="font-bold text-gray-900 dark:text-white flex items-center gap-2 tracking-tight">
+            <h4 className="font-bold text-gray-900 flex items-center gap-2 tracking-tight">
               <AlertTriangle className="w-5 h-5 text-red-500" />
               Risks to Monitor
             </h4>
             <div className="space-y-2 mt-3">
               {narrative.risks.map((risk, idx) => (
-                <div key={idx} className="bg-red-50/80 dark:bg-red-900/10 border border-red-200/40 dark:border-red-800/30 rounded-xl p-3.5 flex items-start gap-3">
+                <div key={idx} className="bg-red-50/80 border border-red-200/40 rounded-xl p-3.5 flex items-start gap-3">
                   <AlertTriangle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm text-red-700 dark:text-red-300 leading-relaxed">{risk}</p>
+                  <p className="text-sm text-red-700 leading-relaxed">{risk}</p>
                 </div>
               ))}
             </div>
           </div>
 
           <div>
-            <h4 className="font-bold text-gray-900 dark:text-white flex items-center gap-2 tracking-tight">
+            <h4 className="font-bold text-gray-900 flex items-center gap-2 tracking-tight">
               <TrendingUp className="w-5 h-5 text-emerald-500" />
               Opportunities
             </h4>
             <div className="space-y-2 mt-3">
               {narrative.opportunities.map((opp, idx) => (
-                <div key={idx} className="bg-emerald-50/80 dark:bg-emerald-900/10 border border-emerald-200/40 dark:border-emerald-800/30 rounded-xl p-3.5 flex items-start gap-3">
+                <div key={idx} className="bg-emerald-50/80 border border-emerald-200/40 rounded-xl p-3.5 flex items-start gap-3">
                   <Lightbulb className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm text-emerald-700 dark:text-emerald-300 leading-relaxed">{opp}</p>
+                  <p className="text-sm text-emerald-700 leading-relaxed">{opp}</p>
                 </div>
               ))}
             </div>
@@ -242,48 +242,48 @@ ${narrative.opportunities.map(o => `- ${o}`).join('\n')}
       </div>
 
       {/* Operational Deep Dive */}
-      <div className="mt-6 border-t border-gray-100 dark:border-gray-700/50 pt-6">
-        <h4 className="font-bold text-gray-900 dark:text-white mb-4 tracking-tight">Operational Deep Dive</h4>
+      <div className="mt-6 border-t border-gray-100 pt-6">
+        <h4 className="font-bold text-gray-900 mb-4 tracking-tight">Operational Deep Dive</h4>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 rounded-xl p-4">
-            <h5 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2 text-sm">
+          <div className="bg-white border border-gray-200/60 rounded-xl p-4">
+            <h5 className="font-semibold text-gray-900 mb-3 flex items-center gap-2 text-sm">
               <Battery className="w-4 h-4 text-amber-500" />
               Vehicle Health
             </h5>
             <div className="space-y-2.5 text-sm">
-              <div className="flex justify-between items-center"><span className="text-gray-500">Critical Risk</span><span className="font-semibold text-red-600 dark:text-red-400">{criticalVehicles}</span></div>
-              <div className="flex justify-between items-center"><span className="text-gray-500">High Risk</span><span className="font-semibold text-amber-600 dark:text-amber-400">{highRiskVehicles}</span></div>
-              <div className="flex justify-between items-center"><span className="text-gray-500">Avg Health Score</span><span className="font-semibold text-gray-900 dark:text-white">{Math.round(vehicles.reduce((s, v) => s + v.healthScore, 0) / vehicles.length)}</span></div>
-              <div className="flex justify-between items-center"><span className="text-gray-500">Charging</span><span className="font-semibold text-blue-600 dark:text-blue-400">{vehicles.filter(v => v.status === 'charging').length}</span></div>
+              <div className="flex justify-between items-center"><span className="text-gray-500">Critical Risk</span><span className="font-semibold text-red-600">{criticalVehicles}</span></div>
+              <div className="flex justify-between items-center"><span className="text-gray-500">High Risk</span><span className="font-semibold text-amber-600">{highRiskVehicles}</span></div>
+              <div className="flex justify-between items-center"><span className="text-gray-500">Avg Health Score</span><span className="font-semibold text-gray-900">{Math.round(vehicles.reduce((s, v) => s + v.healthScore, 0) / vehicles.length)}</span></div>
+              <div className="flex justify-between items-center"><span className="text-gray-500">Charging</span><span className="font-semibold text-blue-600">{vehicles.filter(v => v.status === 'charging').length}</span></div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 rounded-xl p-4">
-            <h5 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2 text-sm">
+          <div className="bg-white border border-gray-200/60 rounded-xl p-4">
+            <h5 className="font-semibold text-gray-900 mb-3 flex items-center gap-2 text-sm">
               <Shield className="w-4 h-4 text-purple-500" />
               AI Autonomy
             </h5>
             <div className="space-y-2.5 text-sm">
-              <div className="flex justify-between items-center"><span className="text-gray-500">Network Avg</span><span className="font-semibold text-gray-900 dark:text-white">{Math.round(hubs.reduce((s, h) => s + h.autonomyScore, 0) / hubs.length)}%</span></div>
-              <div className="flex justify-between items-center"><span className="text-gray-500">Below 70%</span><span className="font-semibold text-red-600 dark:text-red-400">{lowAutonomyHubs} hubs</span></div>
-              <div className="flex justify-between items-center"><span className="text-gray-500">Fully Auto (85%+)</span><span className="font-semibold text-emerald-600 dark:text-emerald-400">{hubs.filter(h => h.autonomyScore >= 85).length} hubs</span></div>
+              <div className="flex justify-between items-center"><span className="text-gray-500">Network Avg</span><span className="font-semibold text-gray-900">{Math.round(hubs.reduce((s, h) => s + h.autonomyScore, 0) / hubs.length)}%</span></div>
+              <div className="flex justify-between items-center"><span className="text-gray-500">Below 70%</span><span className="font-semibold text-red-600">{lowAutonomyHubs} hubs</span></div>
+              <div className="flex justify-between items-center"><span className="text-gray-500">Fully Auto (85%+)</span><span className="font-semibold text-emerald-600">{hubs.filter(h => h.autonomyScore >= 85).length} hubs</span></div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 rounded-xl p-4">
-            <h5 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2 text-sm">
+          <div className="bg-white border border-gray-200/60 rounded-xl p-4">
+            <h5 className="font-semibold text-gray-900 mb-3 flex items-center gap-2 text-sm">
               <Clock className="w-4 h-4 text-gray-400" />
               Time-Sensitive Actions
             </h5>
             <div className="space-y-2 text-sm">
               {narrative.topPriorities.filter(p => p.timeframe === 'immediate').map((p, idx) => (
-                <div key={idx} className="flex items-center gap-2 text-red-600 dark:text-red-400">
+                <div key={idx} className="flex items-center gap-2 text-red-600">
                   <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
                   <span className="font-medium">{p.action}</span>
                 </div>
               ))}
               {narrative.topPriorities.filter(p => p.timeframe === 'today').map((p, idx) => (
-                <div key={`today-${idx}`} className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
+                <div key={`today-${idx}`} className="flex items-center gap-2 text-amber-600">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
                   <span className="font-medium">{p.action}</span>
                 </div>
@@ -294,7 +294,7 @@ ${narrative.opportunities.map(o => `- ${o}`).join('\n')}
       </div>
 
       {/* Footer */}
-      <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/50 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-400 dark:text-gray-500">
+      <div className="mt-6 pt-4 border-t border-gray-100 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-400">
         <div className="flex items-center gap-3">
           <span className="font-semibold">Zypp Nexus AI</span>
           <span className="w-1 h-1 rounded-full bg-gray-300" />

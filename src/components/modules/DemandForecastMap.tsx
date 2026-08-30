@@ -64,18 +64,18 @@ export function DemandForecastMap() {
 
   const demandStyles = {
     high: {
-      card: 'bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900/10 dark:to-orange-900/10 border-red-200/40',
-      text: 'text-red-600 dark:text-red-400',
+      card: 'bg-gradient-to-br from-red-50 to-orange-50 border-red-200/40',
+      text: 'text-red-600',
       bar: 'bg-red-500',
     },
     medium: {
-      card: 'bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-900/10 dark:to-yellow-900/10 border-amber-200/40',
-      text: 'text-amber-600 dark:text-amber-400',
+      card: 'bg-gradient-to-br from-amber-50 to-yellow-50 border-amber-200/40',
+      text: 'text-amber-600',
       bar: 'bg-amber-500',
     },
     low: {
-      card: 'bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/10 dark:to-emerald-900/10 border-green-200/40',
-      text: 'text-green-600 dark:text-green-400',
+      card: 'bg-gradient-to-br from-green-50 to-emerald-50 border-green-200/40',
+      text: 'text-green-600',
       bar: 'bg-green-500',
     },
   };
@@ -90,7 +90,7 @@ export function DemandForecastMap() {
       <Card title="Demand Forecast Map" subtitle="Loading predictions...">
         <div className="space-y-3">
           {[1, 2, 3].map(i => (
-            <div key={i} className="h-20 bg-gray-100 dark:bg-gray-700 rounded-xl animate-pulse" />
+            <div key={i} className="h-20 bg-gray-100 rounded-xl animate-pulse" />
           ))}
         </div>
       </Card>
@@ -105,7 +105,7 @@ export function DemandForecastMap() {
             <button
               key={t}
               onClick={() => setTimeRange(t)}
-              className={`px-3 py-1.5 text-sm transition-all duration-300 ${timeRange === t ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl shadow-md' : 'bg-gray-100 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-xl'}`}
+              className={`px-3 py-1.5 text-sm transition-all duration-300 ${timeRange === t ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200:bg-gray-600 rounded-xl'}`}
             >
               {t}
             </button>
@@ -122,8 +122,8 @@ export function DemandForecastMap() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-4">
-          <h4 className="font-semibold text-gray-900 dark:text-white">Zone Demand Heatmap</h4>
-          <div className="bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 rounded-xl p-4 shadow-sm">
+          <h4 className="font-semibold text-gray-900">Zone Demand Heatmap</h4>
+          <div className="bg-white border border-gray-200/60 rounded-xl p-4 shadow-sm">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 stagger-children">
               {zoneSummary.map(zone => {
                 const level = getDemandLevel(zone.totalOrders);
@@ -133,11 +133,11 @@ export function DemandForecastMap() {
                   <button
                     key={zone.zoneId}
                     onClick={() => setSelectedZone(zone.zoneId)}
-                    className={`p-3 rounded-xl text-left transition-all duration-300 hover:shadow-md hover:scale-[1.02] border ${styles.card} ${selectedZone === zone.zoneId ? 'ring-2 ring-blue-400 dark:ring-blue-500' : ''}`}
+                    className={`p-3 rounded-xl text-left transition-all duration-300 hover:shadow-md hover:scale-[1.02] border ${styles.card} ${selectedZone === zone.zoneId ? 'ring-2 ring-blue-400' : ''}`}
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="font-medium text-gray-900 dark:text-white">{zone.zoneName}</p>
+                        <p className="font-medium text-gray-900">{zone.zoneName}</p>
                         <p className="text-xs text-gray-500">{zone.forecast[0]?.factors.join(', ') || 'No factors'}</p>
                       </div>
                       <div className="text-right">
@@ -146,7 +146,7 @@ export function DemandForecastMap() {
                       </div>
                     </div>
                     <div className="mt-2 flex items-center gap-2">
-                      <div className="flex-1 h-2 bg-gray-200/60 dark:bg-gray-700/60 rounded-full overflow-hidden">
+                      <div className="flex-1 h-2 bg-gray-200/60 rounded-full overflow-hidden">
                         <div 
                           className={`h-full rounded-full transition-all duration-500 ${styles.bar}`}
                           style={{ width: `${barWidth}%` }}
@@ -162,8 +162,8 @@ export function DemandForecastMap() {
         </div>
 
         <div className="space-y-4">
-          <h4 className="font-semibold text-gray-900 dark:text-white">Hourly Demand Trend</h4>
-          <div className="bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 rounded-xl p-4 shadow-sm h-48 sm:h-64 animate-fade-in">
+          <h4 className="font-semibold text-gray-900">Hourly Demand Trend</h4>
+          <div className="bg-white border border-gray-200/60 rounded-xl p-4 shadow-sm h-48 sm:h-64 animate-fade-in">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={zoneSummary.flatMap(z => z.forecast.slice(0, 12)).sort((a, b) => new Date(a.timeSlot).getTime() - new Date(b.timeSlot).getTime())}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -192,7 +192,7 @@ export function DemandForecastMap() {
       {selectedZone && (
         <div className="mt-6">
           <div className="flex items-center justify-between mb-4">
-            <h4 className="font-semibold text-gray-900 dark:text-white">
+            <h4 className="font-semibold text-gray-900">
               {zoneSummary.find(z => z.zoneId === selectedZone)?.zoneName} - Hourly Breakdown
             </h4>
             <button onClick={() => setSelectedZone(null)} className="text-sm text-gray-500 hover:text-gray-700">Close</button>
@@ -220,8 +220,8 @@ export function DemandForecastMap() {
         </div>
       )}
 
-      <div className="mt-6 border-t border-gray-200 dark:border-gray-700 pt-4">
-        <h4 className="font-semibold text-gray-900 dark:text-white mb-3">All Zones - Next 24 Hours</h4>
+      <div className="mt-6 border-t border-gray-200 pt-4">
+        <h4 className="font-semibold text-gray-900 mb-3">All Zones - Next 24 Hours</h4>
         <div className="overflow-x-auto">
           <Table
             columns={[

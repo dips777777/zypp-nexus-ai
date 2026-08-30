@@ -45,9 +45,9 @@ export function HubCommandCenter() {
   };
 
   const getAutonomyTextColor = (score: number) => {
-    if (score >= 85) return 'text-emerald-600 dark:text-emerald-400';
-    if (score >= 70) return 'text-blue-600 dark:text-blue-400';
-    return 'text-red-600 dark:text-red-400';
+    if (score >= 85) return 'text-emerald-600';
+    if (score >= 70) return 'text-blue-600';
+    return 'text-red-600';
   };
 
   const getStatusDotColor = (status: string) => {
@@ -61,9 +61,9 @@ export function HubCommandCenter() {
       <Card title="Hub Command Center" subtitle="Loading hub autonomy data...">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {[1, 2, 3].map(i => (
-            <div key={i} className="bg-gray-100 dark:bg-gray-700 rounded-xl p-6 animate-pulse">
-              <div className="h-6 bg-gray-200 dark:bg-gray-600 rounded w-3/4 mb-4" />
-              <div className="h-4 bg-gray-200 dark:bg-gray-600 rounded w-1/2" />
+            <div key={i} className="bg-gray-100 rounded-xl p-6 animate-pulse">
+              <div className="h-6 bg-gray-200 rounded w-3/4 mb-4" />
+              <div className="h-4 bg-gray-200 rounded w-1/2" />
             </div>
           ))}
         </div>
@@ -87,17 +87,17 @@ export function HubCommandCenter() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-4">
-          <h4 className="font-semibold text-gray-900 dark:text-white">Hub Autonomy Scores</h4>
+          <h4 className="font-semibold text-gray-900">Hub Autonomy Scores</h4>
           <div className="space-y-3 stagger-children">
             {hubs
               .sort((a, b) => b.autonomyScore - a.autonomyScore)
               .map(hub => (
                 <div
                   key={hub.id}
-                  className={`bg-white dark:bg-gray-800 border rounded-xl p-4 hover:shadow-md transition-all duration-300 cursor-pointer ${
+                  className={`bg-white border rounded-xl p-4 hover:shadow-md transition-all duration-300 cursor-pointer ${
                     selectedHub?.id === hub.id
-                      ? 'bg-blue-50/80 dark:bg-blue-900/10 border-blue-300 dark:border-blue-700 shadow-md shadow-blue-100 dark:shadow-blue-900/20'
-                      : 'border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700'
+                      ? 'bg-blue-50/80 border-blue-300 shadow-md shadow-blue-100'
+                      : 'border-gray-200 hover:border-blue-300:border-blue-700'
                   }`}
                   onClick={() => setSelectedHub(hub)}
                 >
@@ -106,16 +106,16 @@ export function HubCommandCenter() {
                       <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-sm font-bold ${
                         selectedHub?.id === hub.id
                           ? 'bg-gradient-to-br from-blue-500 to-indigo-600 text-white'
-                          : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
+                          : 'bg-gray-100 text-gray-600'
                       }`}>
                         {hub.name.charAt(0)}
                       </div>
                       <div>
                         <div className="flex items-center gap-1.5">
                           <span className={`w-2.5 h-2.5 rounded-full ${getStatusDotColor(hub.status)}`} />
-                          <h5 className="font-medium text-gray-900 dark:text-white">{hub.name}</h5>
+                          <h5 className="font-medium text-gray-900">{hub.name}</h5>
                         </div>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{hub.city} • {hub.fleetSize} vehicles • {hub.riderCount} riders</p>
+                        <p className="text-sm text-gray-500">{hub.city} • {hub.fleetSize} vehicles • {hub.riderCount} riders</p>
                       </div>
                     </div>
                     <Badge variant={getAutonomyColor(hub.autonomyScore)}>
@@ -130,7 +130,7 @@ export function HubCommandCenter() {
         </div>
 
         <div className="space-y-4">
-          <h4 className="font-semibold text-gray-900 dark:text-white">Operational Metrics</h4>
+          <h4 className="font-semibold text-gray-900">Operational Metrics</h4>
           <div className="overflow-x-auto">
             <Table
               columns={[
@@ -159,7 +159,7 @@ export function HubCommandCenter() {
 
       {selectedHub && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 animate-fade-in" onClick={() => setSelectedHub(null)}>
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 w-full max-w-2xl max-h-[80vh] overflow-y-auto shadow-2xl border border-gray-200/60 dark:border-gray-700/60 animate-fade-in-scale" onClick={e => e.stopPropagation()}>
+          <div className="bg-white rounded-xl p-6 w-full max-w-2xl max-h-[80vh] overflow-y-auto shadow-2xl border border-gray-200/60 animate-fade-in-scale" onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold">
@@ -170,7 +170,7 @@ export function HubCommandCenter() {
                   <p className="text-sm text-gray-500">{selectedHub.city} • Hub #{selectedHub.id.replace('hub_', '')}</p>
                 </div>
               </div>
-              <button onClick={() => setSelectedHub(null)} className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-700/50 flex items-center justify-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+              <button onClick={() => setSelectedHub(null)} className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-400 hover:text-gray-600:text-gray-300 transition-colors">
                 <span className="text-lg leading-none">&times;</span>
               </button>
             </div>
@@ -184,7 +184,7 @@ export function HubCommandCenter() {
               <MetricCard label="Status" value={selectedHub.status} icon={<Zap className="w-4 h-4" />} />
             </div>
 
-            <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+            <div className="border-t border-gray-200 pt-4">
               <h5 className="font-medium mb-3">Autonomy Breakdown</h5>
               <div className="space-y-3">
                 {[
@@ -195,7 +195,7 @@ export function HubCommandCenter() {
                   { label: 'Maintenance Scheduling', score: Math.max(35, selectedHub.autonomyScore - 20) },
                 ].map(item => (
                   <div key={item.label} className="flex items-center justify-between">
-                    <span className="text-sm text-gray-700 dark:text-gray-300">{item.label}</span>
+                    <span className="text-sm text-gray-700">{item.label}</span>
                     <div className="w-full max-w-[192px]">
                       <ProgressBar value={item.score} color={item.score >= 80 ? 'green' : item.score >= 60 ? 'yellow' : 'red'} showLabel={true} />
                     </div>
@@ -205,7 +205,7 @@ export function HubCommandCenter() {
             </div>
 
             {selectedHub.alerts.length > 0 && (
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
+              <div className="border-t border-gray-200 pt-4 mt-4">
                 <h5 className="font-medium mb-3">Active Alerts ({selectedHub.alerts.length})</h5>
                 <div className="overflow-x-auto">
                   <Table

@@ -81,7 +81,7 @@ export function AICommandCenter() {
       <Card title="AI Command Center" subtitle="Loading hub network...">
         <div className="space-y-3">
           {[1, 2, 3, 4, 5].map(i => (
-            <div key={i} className="h-16 bg-gray-100 dark:bg-gray-700/50 rounded-xl animate-pulse" />
+            <div key={i} className="h-16 bg-gray-100 rounded-xl animate-pulse" />
           ))}
         </div>
       </Card>
@@ -110,24 +110,24 @@ export function AICommandCenter() {
           const hubCritical = hubAlerts.filter(a => a.severity === 'critical').length;
           const hubWarnings = hubAlerts.filter(a => a.severity === 'warning').length;
           const isExpanded = expandedHubs.has(hub.id);
-          const autonomyColor = hub.autonomyScore >= 85 ? 'text-emerald-600 dark:text-emerald-400' : hub.autonomyScore >= 70 ? 'text-blue-600 dark:text-blue-400' : 'text-red-600 dark:text-red-400';
+          const autonomyColor = hub.autonomyScore >= 85 ? 'text-emerald-600' : hub.autonomyScore >= 70 ? 'text-blue-600' : 'text-red-600';
           
           return (
-            <div key={hub.id} className="border border-gray-200/60 dark:border-gray-700/60 rounded-xl overflow-hidden hover:shadow-md transition-all duration-300 bg-white dark:bg-gray-800/60">
+            <div key={hub.id} className="border border-gray-200/60 rounded-xl overflow-hidden hover:shadow-md transition-all duration-300 bg-white">
               <button
                 onClick={() => toggleHub(hub.id)}
-                className="w-full px-4 py-3.5 flex items-center justify-between hover:bg-gray-50/80 dark:hover:bg-gray-700/30 transition-colors"
+                className="w-full px-4 py-3.5 flex items-center justify-between hover:bg-gray-50/80:bg-gray-700/30 transition-colors"
               >
                 <div className="flex items-center gap-3.5">
                   <div className="relative">
-                    <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center">
-                      <MapPin className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
+                      <MapPin className="w-5 h-5 text-blue-600" />
                     </div>
-                    <span className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white dark:border-gray-800 ${getStatusDot(hub.status)}`} />
+                    <span className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white ${getStatusDot(hub.status)}`} />
                   </div>
                   <div className="text-left">
-                    <h4 className="font-semibold text-gray-900 dark:text-white text-sm">{hub.name}</h4>
-                    <p className="text-xs text-gray-400 dark:text-gray-500">{hub.city} &bull; {hub.fleetSize} vehicles &bull; {hub.riderCount} riders</p>
+                    <h4 className="font-semibold text-gray-900 text-sm">{hub.name}</h4>
+                    <p className="text-xs text-gray-400">{hub.city} &bull; {hub.fleetSize} vehicles &bull; {hub.riderCount} riders</p>
                   </div>
                 </div>
                 <div className="flex items-center flex-wrap gap-2">
@@ -136,14 +136,14 @@ export function AICommandCenter() {
                   <Badge variant={hubCritical > 0 ? 'danger' : hubWarnings > 0 ? 'warning' : 'success'}>
                     {hubCritical > 0 ? `${hubCritical} Critical` : hubWarnings > 0 ? `${hubWarnings} Warnings` : 'All Clear'}
                   </Badge>
-                  <div className="w-6 h-6 rounded-lg bg-gray-100 dark:bg-gray-700/50 flex items-center justify-center">
+                  <div className="w-6 h-6 rounded-lg bg-gray-100 flex items-center justify-center">
                     {isExpanded ? <ChevronUp className="w-3.5 h-3.5 text-gray-400" /> : <ChevronDown className="w-3.5 h-3.5 text-gray-400" />}
                   </div>
                 </div>
               </button>
 
               {isExpanded && (
-                <div className="border-t border-gray-100 dark:border-gray-700/50 p-4 bg-gray-50/50 dark:bg-gray-800/30">
+                <div className="border-t border-gray-100 p-4 bg-gray-50/50">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
                     <MetricCard label="Deliveries Today" value={hub.todayDeliveries.toLocaleString()} />
                     <MetricCard label="Revenue" value={`₹${(hub.todayRevenue / 100000).toFixed(1)}L`} />
@@ -152,7 +152,7 @@ export function AICommandCenter() {
                   
                   {hubAlerts.length > 0 && (
                     <div>
-                      <h5 className="font-semibold text-gray-900 dark:text-white mb-2 text-sm flex items-center gap-2">
+                      <h5 className="font-semibold text-gray-900 mb-2 text-sm flex items-center gap-2">
                         <Signal className="w-4 h-4 text-gray-400" />
                         Active Alerts
                       </h5>

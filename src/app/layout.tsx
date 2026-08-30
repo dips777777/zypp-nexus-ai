@@ -21,13 +21,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#3b82f6" },
-    { media: "(prefers-color-scheme: dark)", color: "#1e40af" },
-  ],
+  themeColor: "#3b82f6",
   width: "device-width",
   initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
+
+const forceLightMode = `(() => { document.documentElement.classList.remove('dark'); document.documentElement.style.colorScheme = 'light'; })();`;
 
 export default function RootLayout({ children }: React.PropsWithChildren) {
   return (
@@ -36,6 +37,9 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: forceLightMode }} />
+      </head>
       <body className="min-h-full flex flex-col bg-gray-50 text-gray-900">
         {children}
       </body>

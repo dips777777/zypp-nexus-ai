@@ -48,6 +48,14 @@ export function Dashboard() {
   const [activeModule, setActiveModule] = useState<ModuleId>('command-center');
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 1024);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   const ModuleComponent = moduleComponents[activeModule];
   const activeModuleInfo = MODULES.find(m => m.id === activeModule);
@@ -56,6 +64,8 @@ export function Dashboard() {
     setActiveModule(id);
     setMobileMenuOpen(false);
   };
+
+  const mainMarginLeft = isDesktop ? (sidebarOpen ? 288 : 80) : 0;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -146,7 +156,7 @@ export function Dashboard() {
       )}
 
       {/* Main Content */}
-      <main className="lg:ml-[80px]" style={{ marginLeft: typeof window !== 'undefined' && window.innerWidth >= 1024 && sidebarOpen ? 288 : undefined }}>
+      <main style={{ marginLeft: mainMarginLeft }} className="transition-all duration-300">
         <header className="sticky top-0 z-30 bg-white border-b border-gray-200">
           <div className="flex items-center justify-between h-14 px-4 sm:px-6">
             <div className="flex items-center gap-3">

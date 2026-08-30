@@ -55,7 +55,7 @@ export function VehicleDigitalTwin() {
       <Card title="Vehicle Digital Twin" subtitle="Loading vehicle profiles...">
         <div className="space-y-3">
           {[1, 2, 3].map(i => (
-            <div key={i} className="h-24 bg-gray-100 dark:bg-gray-700 rounded-xl animate-pulse" />
+            <div key={i} className="h-24 bg-gray-100 rounded-xl animate-pulse" />
           ))}
         </div>
       </Card>
@@ -76,17 +76,17 @@ export function VehicleDigitalTwin() {
             placeholder="Search registration, model, ID..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-sm focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl bg-white text-sm focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all"
           />
         </div>
-        <select value={riskFilter} onChange={e => setRiskFilter(e.target.value)} className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-sm focus:ring-2 focus:ring-blue-500/40 transition-all">
+        <select value={riskFilter} onChange={e => setRiskFilter(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-xl bg-white text-sm focus:ring-2 focus:ring-blue-500/40 transition-all">
           <option value="all">All Risk Levels</option>
           <option value="critical">Critical</option>
           <option value="high">High</option>
           <option value="medium">Medium</option>
           <option value="low">Low</option>
         </select>
-        <select value={hubFilter} onChange={e => setHubFilter(e.target.value)} className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-sm w-full sm:min-w-[150px] focus:ring-2 focus:ring-blue-500/40 transition-all">
+        <select value={hubFilter} onChange={e => setHubFilter(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-xl bg-white text-sm w-full sm:min-w-[150px] focus:ring-2 focus:ring-blue-500/40 transition-all">
           <option value="all">All Hubs</option>
           {hubs.map(h => <option key={h} value={h}>Hub {h.replace('hub_', '')}</option>)}
         </select>
@@ -161,17 +161,17 @@ function VehicleDetailView({ vehicle, onClose, onNavigate }: { vehicle: Vehicle;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm animate-fade-in p-4" onClick={onClose}>
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200/60 dark:border-gray-700/60 animate-fade-in-scale w-full max-w-full lg:max-w-4xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-        <div className="sticky top-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 p-4 flex items-center justify-between z-10">
+      <div className="bg-white rounded-2xl shadow-2xl border border-gray-200/60 animate-fade-in-scale w-full max-w-full lg:max-w-4xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+        <div className="sticky top-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 p-4 flex items-center justify-between z-10">
           <div className="flex items-center gap-4">
-            <button onClick={() => onNavigate(-1)} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-all"><ChevronLeft className="w-5 h-5" /></button>
+            <button onClick={() => onNavigate(-1)} className="p-2 hover:bg-gray-100:bg-gray-700 rounded-xl transition-all"><ChevronLeft className="w-5 h-5" /></button>
             <div>
               <h3 className="text-lg font-semibold">{vehicle.registrationNumber}</h3>
               <p className="text-sm text-gray-500">{vehicle.model} • Hub #{vehicle.hubId.replace('hub_', '')}</p>
             </div>
-            <button onClick={() => onNavigate(1)} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-all"><ChevronRight className="w-5 h-5" /></button>
+            <button onClick={() => onNavigate(1)} className="p-2 hover:bg-gray-100:bg-gray-700 rounded-xl transition-all"><ChevronRight className="w-5 h-5" /></button>
           </div>
-          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-700 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-lg font-medium">×</button>
+          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-xl bg-gray-100 text-gray-500 hover:text-gray-700:text-gray-300 hover:bg-gray-200:bg-gray-600 transition-all text-lg font-medium">×</button>
         </div>
 
         <div className="p-6 space-y-6">
@@ -182,10 +182,10 @@ function VehicleDetailView({ vehicle, onClose, onNavigate }: { vehicle: Vehicle;
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 rounded-xl p-4 space-y-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                <span className="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center">
-                  <Battery className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+            <div className="bg-white border border-gray-200/60 rounded-xl p-4 space-y-4">
+              <h4 className="font-semibold text-gray-900 flex items-center gap-2">
+                <span className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center">
+                  <Battery className="w-4 h-4 text-amber-600" />
                 </span>
                 Battery & Power
               </h4>
@@ -195,7 +195,7 @@ function VehicleDetailView({ vehicle, onClose, onNavigate }: { vehicle: Vehicle;
                     <span>Current Charge</span>
                     <span className={getBatteryColor(vehicle.currentBattery) === 'green' ? 'text-green-600' : getBatteryColor(vehicle.currentBattery) === 'yellow' ? 'text-yellow-600' : 'text-red-600'}>{vehicle.currentBattery}%</span>
                   </div>
-                  <div className="relative h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                  <div className="relative h-2 bg-gray-200 rounded-full overflow-hidden">
                     <div
                       className={`absolute inset-y-0 left-0 rounded-full transition-all duration-500 ${
                         vehicle.currentBattery > 60
@@ -219,17 +219,17 @@ function VehicleDetailView({ vehicle, onClose, onNavigate }: { vehicle: Vehicle;
               </div>
             </div>
 
-            <div className="bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 rounded-xl p-4 space-y-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                <span className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
-                  <Truck className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+            <div className="bg-white border border-gray-200/60 rounded-xl p-4 space-y-4">
+              <h4 className="font-semibold text-gray-900 flex items-center gap-2">
+                <span className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+                  <Truck className="w-4 h-4 text-blue-600" />
                 </span>
                 Usage & Wear
               </h4>
               <div className="space-y-3">
                 <div>
                   <div className="flex justify-between text-sm mb-1"><span>Total Distance</span><span>{vehicle.totalDistance.toLocaleString()} km</span></div>
-                  <div className="relative h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                  <div className="relative h-2 bg-gray-200 rounded-full overflow-hidden">
                     <div
                       className={`absolute inset-y-0 left-0 rounded-full transition-all duration-500 ${
                         vehicle.totalDistance > 40000
@@ -245,7 +245,7 @@ function VehicleDetailView({ vehicle, onClose, onNavigate }: { vehicle: Vehicle;
                 </div>
                 <div>
                   <div className="flex justify-between text-sm mb-1"><span>Repair Count</span><span>{vehicle.repairCount}</span></div>
-                  <div className="relative h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                  <div className="relative h-2 bg-gray-200 rounded-full overflow-hidden">
                     <div
                       className={`absolute inset-y-0 left-0 rounded-full transition-all duration-500 ${
                         vehicle.repairCount > 3
@@ -266,10 +266,10 @@ function VehicleDetailView({ vehicle, onClose, onNavigate }: { vehicle: Vehicle;
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 rounded-xl p-4">
-            <h4 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-              <span className="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900/40 flex items-center justify-center">
-                <Wrench className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+          <div className="bg-white border border-gray-200/60 rounded-xl p-4">
+            <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+              <span className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center">
+                <Wrench className="w-4 h-4 text-purple-600" />
               </span>
               Health Score Breakdown
             </h4>
@@ -281,9 +281,9 @@ function VehicleDetailView({ vehicle, onClose, onNavigate }: { vehicle: Vehicle;
                 { label: 'Usage Anomalies (20%)', score: vehicle.status === 'broken_down' ? 0 : vehicle.status === 'maintenance' ? 40 : vehicle.status === 'charging' ? 85 : 95 },
               ].map(item => (
                 <div key={item.label} className="flex items-center justify-between">
-                  <span className="text-sm text-gray-700 dark:text-gray-300">{item.label}</span>
+                  <span className="text-sm text-gray-700">{item.label}</span>
                   <div className="w-full max-w-[256px]">
-                    <div className="relative h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div className="relative h-2 bg-gray-200 rounded-full overflow-hidden">
                       <div
                         className={`absolute inset-y-0 left-0 rounded-full transition-all duration-500 ${
                           item.score >= 80
@@ -302,15 +302,15 @@ function VehicleDetailView({ vehicle, onClose, onNavigate }: { vehicle: Vehicle;
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 rounded-xl p-4">
-            <h4 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-              <span className="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900/40 flex items-center justify-center">
-                <Wrench className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+          <div className="bg-white border border-gray-200/60 rounded-xl p-4">
+            <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+              <span className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center">
+                <Wrench className="w-4 h-4 text-purple-600" />
               </span>
               Predictive Maintenance
             </h4>
-            <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4">
-              <p className="text-sm text-gray-700 dark:text-gray-300">
+            <div className="bg-gray-50 rounded-xl p-4">
+              <p className="text-sm text-gray-700">
                 {vehicle.predictedFailureRisk === 'critical'
                   ? '⚠️ CRITICAL: Immediate maintenance required. High probability of breakdown within 48 hours.'
                   : vehicle.predictedFailureRisk === 'high'
@@ -321,21 +321,21 @@ function VehicleDetailView({ vehicle, onClose, onNavigate }: { vehicle: Vehicle;
               </p>
               <div className="mt-3 flex flex-wrap gap-3">
                 <button className="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl text-sm shadow-sm hover:shadow-md transition-all font-medium">Schedule Maintenance</button>
-                <button className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-all">View Service History</button>
-                <button className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-all">Order Parts</button>
+                <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-xl text-sm hover:bg-gray-100:bg-gray-700 transition-all">View Service History</button>
+                <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-xl text-sm hover:bg-gray-100:bg-gray-700 transition-all">Order Parts</button>
               </div>
             </div>
           </div>
 
           {vehicle.assignedRiderId && (
-            <div className="bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 rounded-xl p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                <span className="w-8 h-8 rounded-lg bg-green-100 dark:bg-green-900/40 flex items-center justify-center">
-                  <MapPin className="w-4 h-4 text-green-600 dark:text-green-400" />
+            <div className="bg-white border border-gray-200/60 rounded-xl p-4">
+              <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                <span className="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center">
+                  <MapPin className="w-4 h-4 text-green-600" />
                 </span>
                 Current Assignment
               </h4>
-              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4">
+              <div className="bg-blue-50 rounded-xl p-4">
                 <p className="text-sm"><strong>Assigned Rider:</strong> {vehicle.assignedRiderId.replace(`rider_${vehicle.hubId}_`, 'Rider #')}</p>
                 <p className="text-sm"><strong>Status:</strong> In Use</p>
               </div>

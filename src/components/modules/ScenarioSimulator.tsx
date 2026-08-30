@@ -118,14 +118,14 @@ export function ScenarioSimulator() {
           <div className="lg:col-span-1 space-y-6">
             <div className="space-y-3">
               {[1, 2, 3, 4].map(i => (
-                <div key={i} className="h-16 bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse" />
+                <div key={i} className="h-16 bg-gray-200 rounded-xl animate-pulse" />
               ))}
             </div>
             <div className="space-y-4">
               {[1, 2, 3, 4, 5].map(i => (
                 <div key={i}>
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse w-32 mb-2" />
-                  <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse" />
+                  <div className="h-4 bg-gray-200 rounded-xl animate-pulse w-32 mb-2" />
+                  <div className="h-2 bg-gray-200 rounded-xl animate-pulse" />
                 </div>
               ))}
             </div>
@@ -133,12 +133,12 @@ export function ScenarioSimulator() {
           <div className="lg:col-span-2 space-y-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {[1, 2, 3, 4].map(i => (
-                <div key={i} className="h-24 bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse" />
+                <div key={i} className="h-24 bg-gray-200 rounded-xl animate-pulse" />
               ))}
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="h-72 bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse" />
-              <div className="h-72 bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse" />
+              <div className="h-72 bg-gray-200 rounded-xl animate-pulse" />
+              <div className="h-72 bg-gray-200 rounded-xl animate-pulse" />
             </div>
           </div>
         </div>
@@ -152,7 +152,7 @@ export function ScenarioSimulator() {
         {/* Controls Panel */}
         <div className="lg:col-span-1 space-y-6">
           <div>
-            <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Quick Presets</h4>
+            <h4 className="font-semibold text-gray-900 mb-3">Quick Presets</h4>
             <div className="space-y-2 stagger-children">
               {PRESETS.map(preset => {
                 const isSelected = activePreset === preset.name || (activePreset === 'preset' && JSON.stringify(params) === JSON.stringify(preset.params));
@@ -162,15 +162,15 @@ export function ScenarioSimulator() {
                     onClick={() => applyPreset(preset.params)}
                     className={`w-full p-3 rounded-xl border-2 text-left transition-all duration-300 ${
                       isSelected
-                        ? 'bg-gradient-to-r from-blue-50/80 to-indigo-50/80 dark:from-blue-900/10 dark:to-indigo-900/10 border-blue-300 dark:border-blue-700 shadow-md shadow-blue-100 dark:shadow-blue-900/20'
-                        : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-md'
+                        ? 'bg-gradient-to-r from-blue-50/80 to-indigo-50/80 border-blue-300 shadow-md shadow-blue-100'
+                        : 'border-gray-200 hover:border-gray-300:border-gray-600 hover:shadow-md'
                     }`}
                   >
                     <div className="flex items-center gap-3">
                       <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-300 ${
                         isSelected
-                          ? 'bg-blue-100 dark:bg-blue-800/30 text-blue-600 dark:text-blue-400'
-                          : 'bg-gray-100 dark:bg-gray-700/50 text-gray-500 dark:text-gray-400'
+                          ? 'bg-blue-100 text-blue-600'
+                          : 'bg-gray-100 text-gray-500'
                       }`}>
                         {preset.icon}
                       </div>
@@ -185,8 +185,8 @@ export function ScenarioSimulator() {
             </div>
           </div>
 
-          <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
-            <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Control Parameters</h4>
+          <div className="border-t border-gray-200 pt-6">
+            <h4 className="font-semibold text-gray-900 mb-4">Control Parameters</h4>
             <div className="space-y-6">
               {(Object.keys(PARAM_RANGES) as Array<keyof ScenarioParams>).map(key => {
                 const range = PARAM_RANGES[key];
@@ -196,8 +196,8 @@ export function ScenarioSimulator() {
                 return (
                   <div key={key} className="space-y-1">
                     <div className="flex items-center justify-between mb-1">
-                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">{range.label}</label>
-                      <span className="text-sm font-mono text-blue-600 dark:text-blue-400">
+                      <label className="text-sm font-medium text-gray-700">{range.label}</label>
+                      <span className="text-sm font-mono text-blue-600">
                         {value}{range.unit ? ` ${range.unit}` : ''}
                       </span>
                     </div>
@@ -208,9 +208,9 @@ export function ScenarioSimulator() {
                       step={range.step}
                       value={value}
                       onChange={e => handleParamChange(key, Number(e.target.value))}
-                      className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none accent-blue-600"
+                      className="w-full h-2 bg-gray-200 rounded-lg appearance-none accent-blue-600"
                     />
-                    <div className="flex justify-between text-[10px] text-gray-400 dark:text-gray-500 px-0.5">
+                    <div className="flex justify-between text-[10px] text-gray-400 px-0.5">
                       <span>{range.min}{range.unit}</span>
                       <span>{range.max}{range.unit}</span>
                     </div>
@@ -264,8 +264,8 @@ export function ScenarioSimulator() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 rounded-xl p-4 shadow-sm">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Projected Monthly P&L</h4>
+            <div className="bg-white border border-gray-200/60 rounded-xl p-4 shadow-sm">
+              <h4 className="font-semibold text-gray-900 mb-4">Projected Monthly P&L</h4>
               <ResponsiveContainer width="100%" height={280}>
                 <AreaChart data={[
                   { name: 'Revenue', value: projection.monthlyRevenue, baseline: baselineProjection.monthlyRevenue },
@@ -297,8 +297,8 @@ export function ScenarioSimulator() {
               </ResponsiveContainer>
             </div>
 
-            <div className="bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 rounded-xl p-4 shadow-sm">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Key Metrics vs Baseline</h4>
+            <div className="bg-white border border-gray-200/60 rounded-xl p-4 shadow-sm">
+              <h4 className="font-semibold text-gray-900 mb-4">Key Metrics vs Baseline</h4>
               <div className="space-y-4">
                 {[
                   { label: 'Vehicle Uptime', current: projection.vehicleUptime, baseline: baselineProjection.vehicleUptime, unit: '%', good: 'higher', color: 'blue' as const },
@@ -309,10 +309,10 @@ export function ScenarioSimulator() {
                   const diff = metric.current - metric.baseline;
                   const isGood = (metric.good === 'higher' && diff > 0) || (metric.good === 'lower' && diff < 0);
                   const colorClasses: Record<string, string> = {
-                    blue: 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400',
-                    indigo: 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400',
-                    amber: 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400',
-                    emerald: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400',
+                    blue: 'bg-blue-100 text-blue-600',
+                    indigo: 'bg-indigo-100 text-indigo-600',
+                    amber: 'bg-amber-100 text-amber-600',
+                    emerald: 'bg-emerald-100 text-emerald-600',
                   };
                   return (
                     <div key={metric.label} className="flex items-center justify-between">
@@ -320,10 +320,10 @@ export function ScenarioSimulator() {
                         <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${colorClasses[metric.color]}`}>
                           {KEY_METRICS_ICONS[metric.label]}
                         </div>
-                        <span className="text-sm text-gray-700 dark:text-gray-300">{metric.label}</span>
+                        <span className="text-sm text-gray-700">{metric.label}</span>
                       </div>
                       <div className="text-right">
-                        <div className="font-semibold text-gray-900 dark:text-white">{metric.current.toFixed(1)}{metric.unit}</div>
+                        <div className="font-semibold text-gray-900">{metric.current.toFixed(1)}{metric.unit}</div>
                         <div className={`text-xs ${isGood ? 'text-green-600' : diff !== 0 ? 'text-red-600' : 'text-gray-500'}`}>
                           {diff !== 0 ? `${diff > 0 ? '+' : ''}${diff.toFixed(1)}${metric.unit} vs baseline` : 'Same as baseline'}
                         </div>
@@ -337,27 +337,27 @@ export function ScenarioSimulator() {
 
           {/* Scenario History */}
           {history.length > 0 && (
-            <div className="bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/60 rounded-xl p-4 shadow-sm">
+            <div className="bg-white border border-gray-200/60 rounded-xl p-4 shadow-sm">
               <div className="flex items-center justify-between mb-4">
-                <h4 className="font-semibold text-gray-900 dark:text-white">Scenario History</h4>
+                <h4 className="font-semibold text-gray-900">Scenario History</h4>
                 <button className="text-sm text-gray-500 hover:text-gray-700 transition-colors">Clear</button>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-gray-200 dark:border-gray-700">
-                      <th className="text-left py-2 px-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Time</th>
-                      <th className="text-right py-2 px-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Riders</th>
-                      <th className="text-right py-2 px-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Maint. Budget</th>
-                      <th className="text-right py-2 px-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Autonomy</th>
-                      <th className="text-right py-2 px-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Revenue</th>
-                      <th className="text-right py-2 px-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Margin</th>
-                      <th className="text-right py-2 px-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Uptime</th>
+                    <tr className="border-b border-gray-200">
+                      <th className="text-left py-2 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Time</th>
+                      <th className="text-right py-2 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Riders</th>
+                      <th className="text-right py-2 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Maint. Budget</th>
+                      <th className="text-right py-2 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Autonomy</th>
+                      <th className="text-right py-2 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Revenue</th>
+                      <th className="text-right py-2 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Margin</th>
+                      <th className="text-right py-2 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Uptime</th>
                     </tr>
                   </thead>
                   <tbody>
                     {history.map((entry, idx) => (
-                      <tr key={idx} className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                      <tr key={idx} className="border-b border-gray-100 hover:bg-gray-50:bg-gray-700/50 transition-colors">
                         <td className="py-2 px-3 text-gray-500">{entry.timestamp.toLocaleTimeString()}</td>
                         <td className="py-2 px-3 text-right">{entry.params.riderCount}</td>
                         <td className="py-2 px-3 text-right">₹{(entry.params.maintenanceBudget/1000).toFixed(0)}K</td>
