@@ -58,7 +58,7 @@ export function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 lg:bg-gray-50 sm:bg-gray-50">
+    <div className="min-h-screen overflow-x-hidden bg-gray-50 lg:bg-gray-50 sm:bg-gray-50">
       {/* Desktop Sidebar */}
       <aside
         className="fixed inset-y-0 left-0 z-40 bg-white border-r border-gray-200 transition-all duration-300 flex-col hidden lg:flex"
@@ -147,25 +147,25 @@ export function Dashboard() {
 
       {/* Main Content — pure CSS margin, no JS needed */}
       <main className={`transition-all duration-300 ${sidebarOpen ? 'lg:ml-[288px]' : 'lg:ml-20'}`}>
-        <header className="sticky top-0 z-30 bg-white border-b border-gray-200">
-          <div className="flex items-center justify-between h-14 px-4 sm:px-6">
-            <div className="flex items-center gap-3">
-              <button onClick={() => setMobileMenuOpen(true)} className="lg:hidden p-2 -ml-2 rounded-lg hover:bg-gray-100">
-                <Menu className="w-5 h-5 text-gray-600" />
+        <header className="sticky top-0 z-30 border-b border-gray-200 bg-white/90 backdrop-blur-sm">
+          <div className="flex h-14 items-center justify-between px-3 sm:px-6">
+            <div className="flex min-w-0 items-center gap-3">
+              <button onClick={() => setMobileMenuOpen(true)} className="rounded-lg p-2 -ml-2 hover:bg-gray-100 lg:hidden">
+                <Menu className="h-5 w-5 text-gray-600" />
               </button>
-              <h1 className="text-base sm:text-lg font-bold text-gray-900 truncate">{activeModuleInfo?.label}</h1>
+              <h1 className="truncate text-base font-bold text-gray-900 sm:text-lg">{activeModuleInfo?.label}</h1>
             </div>
             <div className="flex items-center gap-2">
-              <button className="p-2 rounded-xl hover:bg-gray-100 text-gray-400 relative">
-                <Bell className="w-5 h-5" />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
+              <button className="relative rounded-xl p-2 text-gray-400 hover:bg-gray-100">
+                <Bell className="h-5 w-5" />
+                <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-red-500" />
               </button>
-              <button className="p-2 rounded-xl hover:bg-gray-100 text-gray-400 hidden sm:block">
-                <Settings className="w-5 h-5" />
+              <button className="hidden rounded-xl p-2 text-gray-400 hover:bg-gray-100 sm:block">
+                <Settings className="h-5 w-5" />
               </button>
-              <div className="hidden sm:flex items-center gap-2 pl-2 border-l border-gray-200">
-                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
-                  <User className="w-4 h-4 text-white" />
+              <div className="hidden items-center gap-2 border-l border-gray-200 pl-2 sm:flex">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600">
+                  <User className="h-4 w-4 text-white" />
                 </div>
                 <div className="hidden md:block">
                   <p className="text-sm font-semibold text-gray-900">Zypp Electric</p>

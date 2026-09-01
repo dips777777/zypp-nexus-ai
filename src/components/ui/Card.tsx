@@ -14,15 +14,17 @@ export function Card({ children, className = '', title, subtitle, action }: Card
   return (
     <div className={`bg-white backdrop-blur-sm rounded-xl border border-gray-200/60 shadow-sm hover:shadow-md transition-shadow duration-300 ${className}`}>
       {(title || action) && (
-        <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-          <div>
-            {title && <h3 className="text-lg font-bold text-gray-900 tracking-tight">{title}</h3>}
-            {subtitle && <p className="text-xs text-gray-400 mt-0.5 font-medium">{subtitle}</p>}
+        <div className="border-b border-gray-100 px-4 py-4 sm:px-5 sm:py-4">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              {title && <h3 className="text-base font-bold text-gray-900 tracking-tight sm:text-lg">{title}</h3>}
+              {subtitle && <p className="text-[11px] text-gray-400 mt-0.5 font-medium sm:text-xs">{subtitle}</p>}
+            </div>
+            {action && <div>{action}</div>}
           </div>
-          {action && <div>{action}</div>}
         </div>
       )}
-      <div className="p-5">{children}</div>
+      <div className="p-4 sm:p-5">{children}</div>
     </div>
   );
 }
@@ -46,13 +48,13 @@ const iconBgColors: Record<string, string> = {
 
 export function MetricCard({ label, value, change, changeType = 'neutral', icon, className = '' }: MetricCardProps) {
   return (
-    <div className={`bg-white backdrop-blur-sm rounded-xl border border-gray-200/60 p-4 hover:shadow-md transition-all duration-300 group ${className}`}>
-      <div className="flex items-start justify-between">
+    <div className={`bg-white backdrop-blur-sm rounded-xl border border-gray-200/60 p-3 hover:shadow-md transition-all duration-300 group sm:p-4 ${className}`}>
+      <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">{label}</p>
-          <p className="text-2xl font-bold text-gray-900 mt-1.5 tracking-tight">{value}</p>
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400 sm:text-xs">{label}</p>
+          <p className="mt-1.5 text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">{value}</p>
           {change && (
-            <p className={`text-xs mt-1.5 flex items-center gap-1 font-medium ${
+            <p className={`mt-1.5 flex items-center gap-1 text-[10px] font-medium sm:text-xs ${
               changeType === 'positive' ? 'text-emerald-600' :
               changeType === 'negative' ? 'text-red-600' :
               changeType === 'warning' ? 'text-amber-600' :
@@ -64,7 +66,7 @@ export function MetricCard({ label, value, change, changeType = 'neutral', icon,
           )}
         </div>
         {icon && (
-          <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 ${iconBgColors[changeType || 'neutral']}`}>
+          <div className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 sm:h-10 sm:w-10 ${iconBgColors[changeType || 'neutral']}`}>
             {icon}
           </div>
         )}
@@ -89,7 +91,7 @@ export function Badge({ children, variant = 'default', className = '' }: BadgePr
   };
   
   return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold tracking-wide ${variants[variant]} ${className}`}>
+    <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold tracking-wide sm:px-2.5 sm:text-[11px] ${variants[variant]} ${className}`}>
       {children}
     </span>
   );

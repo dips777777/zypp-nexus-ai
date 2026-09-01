@@ -115,35 +115,36 @@ export function AICommandCenter() {
             <div key={hub.id} className="border border-gray-200/60 rounded-xl overflow-hidden hover:shadow-md transition-all duration-300 bg-white">
               <button
                 onClick={() => toggleHub(hub.id)}
-                className="w-full px-4 py-3.5 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                className="w-full px-3 py-3.5 transition-colors hover:bg-gray-50 sm:px-4"
               >
-                <div className="flex items-center gap-3.5">
-                  <div className="relative">
-                    <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
-                      <MapPin className="w-5 h-5 text-blue-600" />
+                <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex min-w-0 items-center gap-3.5">
+                    <div className="relative">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50">
+                        <MapPin className="h-5 w-5 text-blue-600" />
+                      </div>
+                      <span className={`absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-white ${getStatusDot(hub.status)}`} />
                     </div>
-                    <span className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white ${getStatusDot(hub.status)}`} />
+                    <div className="min-w-0 text-left">
+                      <h4 className="truncate text-sm font-semibold text-gray-900">{hub.name}</h4>
+                      <p className="text-xs text-gray-400">{hub.city} &bull; {hub.fleetSize} vehicles &bull; {hub.riderCount} riders</p>
+                    </div>
                   </div>
-                  <div className="text-left">
-                    <h4 className="font-semibold text-gray-900 text-sm">{hub.name}</h4>
-                    <p className="text-xs text-gray-400">{hub.city} &bull; {hub.fleetSize} vehicles &bull; {hub.riderCount} riders</p>
-                  </div>
-                </div>
-                <div className="flex items-center flex-wrap gap-2">
-                  <Badge variant={getStatusColor(hub.status)}>{hub.status}</Badge>
-                  <span className={`text-sm font-bold ${autonomyColor}`}>{hub.autonomyScore}%</span>
-                  <Badge variant={hubCritical > 0 ? 'danger' : hubWarnings > 0 ? 'warning' : 'success'}>
-                    {hubCritical > 0 ? `${hubCritical} Critical` : hubWarnings > 0 ? `${hubWarnings} Warnings` : 'All Clear'}
-                  </Badge>
-                  <div className="w-6 h-6 rounded-lg bg-gray-100 flex items-center justify-center">
-                    {isExpanded ? <ChevronUp className="w-3.5 h-3.5 text-gray-400" /> : <ChevronDown className="w-3.5 h-3.5 text-gray-400" />}
+                  <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto sm:justify-end">
+                    <Badge variant={getStatusColor(hub.status)}>{hub.status}</Badge>
+                    <span className={`text-sm font-bold ${autonomyColor}`}>{hub.autonomyScore}%</span>
+                    <Badge variant={hubCritical > 0 ? 'danger' : hubWarnings > 0 ? 'warning' : 'success'}>
+                      {hubCritical > 0 ? `${hubCritical} Critical` : hubWarnings > 0 ? `${hubWarnings} Warnings` : 'All Clear'}
+                    </Badge>
+                    <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-gray-100">
+                      {isExpanded ? <ChevronUp className="h-3.5 w-3.5 text-gray-400" /> : <ChevronDown className="h-3.5 w-3.5 text-gray-400" />}
+                    </div>
                   </div>
                 </div>
               </button>
-
               {isExpanded && (
                 <div className="border-t border-gray-100 p-4 bg-gray-50/50">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                  <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
                     <MetricCard label="Deliveries Today" value={hub.todayDeliveries.toLocaleString()} />
                     <MetricCard label="Revenue" value={`₹${(hub.todayRevenue / 100000).toFixed(1)}L`} />
                     <MetricCard label="Margin" value={`₹${((hub.todayRevenue - hub.todayCosts) / 100000).toFixed(1)}L`} />
@@ -158,15 +159,15 @@ export function AICommandCenter() {
                       <div className="overflow-x-auto">
                         <Table
                           columns={[
-                            { key: 'type', header: 'Type', render: (a: any) => (
+                            { key: 'type', header: 'Type', render: (a: Alert) => (
                               <span className="flex items-center gap-2">{getAlertIcon(a.type)} {a.type.replace('_', ' ')}</span>
                             )},
                             { key: 'message', header: 'Message' },
-                            { key: 'severity', header: 'Severity', render: (a: any) => <Badge variant={a.severity === 'critical' ? 'danger' : a.severity === 'warning' ? 'warning' : 'info'}>{a.severity}</Badge> },
-                            { key: 'timestamp', header: 'Time', render: (a: any) => new Date(a.timestamp).toLocaleTimeString() },
-                            { key: 'action', header: 'Action', render: (a: any) => a.suggestedAction || '-' },
+                            { key: 'severity', header: 'Severity', render: (a: Alert) => <Badge variant={a.severity === 'critical' ? 'danger' : a.severity === 'warning' ? 'warning' : 'info'}>{a.severity}</Badge> },
+                            { key: 'timestamp', header: 'Time', render: (a: Alert) => new Date(a.timestamp).toLocaleTimeString() },
+                            { key: 'action', header: 'Action', render: (a: Alert) => a.suggestedAction || '-' },
                           ]}
-                          data={hubAlerts as any}
+                          data={hubAlerts}
                           className="text-sm"
                         />
                       </div>
