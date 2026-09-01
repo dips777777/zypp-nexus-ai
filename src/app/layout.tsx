@@ -15,16 +15,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Zypp Nexus AI - EV Fleet Operating System",
   description: "AI-powered EV fleet operating system for managing Zypp Electric delivery hubs across Delhi NCR",
-  icons: {
-    icon: "/icon.svg",
-  },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#3b82f6",
+  themeColor: "#f9fafb",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
+  viewportFit: "cover",
   userScalable: false,
 };
 
@@ -45,7 +43,10 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
       suppressHydrationWarning
     >
       <head>
-        <meta name="color-scheme" content="only light" />
+        <meta name="color-scheme" content="light" />
+        <meta name="theme-color" content="#f9fafb" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no" />
+        <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='transparent'/%3E%3C/svg%3E" />
         <script dangerouslySetInnerHTML={{ __html: forceLightMode }} />
       </head>
       <body className="min-h-full flex flex-col bg-gray-50 text-gray-900 sm:bg-gray-50 lg:bg-gray-50" style={{ backgroundColor: '#f9fafb' }}>

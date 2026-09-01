@@ -103,6 +103,55 @@ export function AIPLCopilot() {
 
   const COLORS = ['#3b82f6', '#22c55e', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
 
+  const chartLabelNames: Record<string, string> = {
+    'Delivery Fees': 'Delivery',
+    'Per-KM Revenue': 'Per-KM',
+    'Subscriptions': 'Subs',
+    'Battery Swapping': 'Battery Swap',
+    'Rider Payouts': 'Rider Pay',
+    'Overhead': 'Overhead',
+  };
+
+  const renderDonutLabel = (props: {
+    cx?: number;
+    cy?: number;
+    midAngle?: number;
+    innerRadius?: number;
+    outerRadius?: number;
+    percent?: number;
+    name?: string;
+  }) => {
+    const cx = props.cx ?? 0;
+    const cy = props.cy ?? 0;
+    const midAngle = props.midAngle ?? 0;
+    const outerRadius = props.outerRadius ?? 0;
+    const percent = props.percent ?? 0;
+    const name = props.name;
+    const value = Number(percent) * 100;
+    if (value < 4 || !name) return null;
+
+    const radius = outerRadius + 18;
+    const angle = (midAngle * Math.PI) / 180;
+    const x = cx + radius * Math.cos(angle);
+    const y = cy + radius * Math.sin(angle);
+    const labelName = chartLabelNames[name] ?? name;
+    const isLeft = x < cx;
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="#111827"
+        fontSize={11}
+        fontWeight={600}
+        textAnchor={isLeft ? 'end' : 'start'}
+        dominantBaseline="central"
+      >
+        {labelName} {value.toFixed(0)}%
+      </text>
+    );
+  };
+
   return (
     <Card title="AI P&L Copilot" subtitle={`${hubData?.name} • ${period.charAt(0).toUpperCase() + period.slice(1)} View`} className="h-full">
       <div className="flex flex-wrap gap-4 items-center mb-4">
@@ -137,30 +186,33 @@ export function AIPLCopilot() {
             </div>
             <h4 className="font-semibold text-gray-900">Revenue Breakdown</h4>
           </div>
-          <ResponsiveContainer width="100%" height={220}>
+          <ResponsiveContainer width="100%" height={250}>
             <PieChart>
               <Pie
                 data={revenueData}
                 cx="50%"
-                cy="50%"
-                innerRadius={60}
-                outerRadius={100}
+                cy="52%"
+                innerRadius={52}
+                outerRadius={88}
                 paddingAngle={2}
                 dataKey="value"
                 nameKey="name"
-                label={({ name, percent }) => `${name} ${percent ? (percent * 100).toFixed(0) : 0}%`}
-                labelLine={false}
+                label={renderDonutLabel}
+                labelLine={{ stroke: '#9ca3af', strokeWidth: 1 }}
               >
                 {revenueData.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index]} />
                 ))}
               </Pie>
-              <Tooltip formatter={(value: any, name: any) => [`₹${(Number(value) / 100000).toFixed(1)}L`, name]} />
-              <Legend />
+              <Tooltip formatter={(value, name) => {
+                const rawValue = Array.isArray(value) ? Number(value[0] ?? 0) : Number(value ?? 0);
+                return [`₹${(rawValue / 100000).toFixed(1)}L`, String(name)] as [string, string];
+              }} />
+              <Legend wrapperStyle={{ fontSize: '12px', paddingTop: 12 }} />
             </PieChart>
           </ResponsiveContainer>
         </div>
-
+ 
         <div className="bg-white border border-gray-200/60 rounded-xl p-4 shadow-sm animate-fade-in">
           <div className="flex items-center gap-3 mb-4">
             <div className="p-2 rounded-xl bg-red-100">
@@ -168,26 +220,29 @@ export function AIPLCopilot() {
             </div>
             <h4 className="font-semibold text-gray-900">Cost Breakdown</h4>
           </div>
-          <ResponsiveContainer width="100%" height={220}>
+          <ResponsiveContainer width="100%" height={250}>
             <PieChart>
               <Pie
                 data={costData}
                 cx="50%"
-                cy="50%"
-                innerRadius={60}
-                outerRadius={100}
+                cy="52%"
+                innerRadius={52}
+                outerRadius={88}
                 paddingAngle={2}
                 dataKey="value"
                 nameKey="name"
-                label={({ name, percent }) => `${name} ${percent ? (percent * 100).toFixed(0) : 0}%`}
-                labelLine={false}
+                label={renderDonutLabel}
+                labelLine={{ stroke: '#9ca3af', strokeWidth: 1 }}
               >
                 {costData.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index]} />
                 ))}
               </Pie>
-              <Tooltip formatter={(value: any, name: any) => [`₹${(Number(value) / 100000).toFixed(1)}L`, name]} />
-              <Legend />
+              <Tooltip formatter={(value, name) => {
+                const rawValue = Array.isArray(value) ? Number(value[0] ?? 0) : Number(value ?? 0);
+                return [`₹${(rawValue / 100000).toFixed(1)}L`, String(name)] as [string, string];
+              }} />
+              <Legend wrapperStyle={{ fontSize: '12px', paddingTop: 12 }} />
             </PieChart>
           </ResponsiveContainer>
         </div>
@@ -252,10 +307,10 @@ export function AIPLCopilot() {
               <Table
                 columns={[
                   { key: 'name', header: 'Item', className: 'text-xs font-semibold text-gray-500 uppercase tracking-wider' },
-                  { key: 'value', header: 'Amount', className: 'text-right text-xs font-semibold text-gray-500 uppercase tracking-wider', render: (v: any) => <span className="text-emerald-600 font-medium">₹{(v/100000).toFixed(1)}L</span> },
-                   { key: 'pct', header: '% of Total', className: 'text-right text-xs font-semibold text-gray-500 uppercase tracking-wider', render: (v: any) => `${(v / hubFin.revenue.total * 100).toFixed(1)}%` },
+                  { key: 'value', header: 'Amount', className: 'text-right text-xs font-semibold text-gray-500 uppercase tracking-wider', render: (v: number) => <span className="text-emerald-600 font-medium">₹{(v/100000).toFixed(1)}L</span> },
+                  { key: 'pct', header: '% of Total', className: 'text-right text-xs font-semibold text-gray-500 uppercase tracking-wider', render: (v: number) => `${(v / hubFin.revenue.total * 100).toFixed(1)}%` },
                 ]}
-                data={revenueData.map(d => ({ name: d.name, value: d.value, pct: d.value })) as any}
+                data={revenueData.map(d => ({ name: d.name, value: d.value, pct: d.value }))}
                 className="text-sm"
               />
             </div>
@@ -266,10 +321,10 @@ export function AIPLCopilot() {
               <Table
                 columns={[
                   { key: 'name', header: 'Item', className: 'text-xs font-semibold text-gray-500 uppercase tracking-wider' },
-                  { key: 'value', header: 'Amount', className: 'text-right text-xs font-semibold text-gray-500 uppercase tracking-wider', render: (v: any) => <span className="text-red-600 font-medium">₹{(v/100000).toFixed(1)}L</span> },
-                   { key: 'pct', header: '% of Total', className: 'text-right text-xs font-semibold text-gray-500 uppercase tracking-wider', render: (v: any) => `${(v / hubFin.costs.total * 100).toFixed(1)}%` },
+                  { key: 'value', header: 'Amount', className: 'text-right text-xs font-semibold text-gray-500 uppercase tracking-wider', render: (v: number) => <span className="text-red-600 font-medium">₹{(v/100000).toFixed(1)}L</span> },
+                  { key: 'pct', header: '% of Total', className: 'text-right text-xs font-semibold text-gray-500 uppercase tracking-wider', render: (v: number) => `${(v / hubFin.costs.total * 100).toFixed(1)}%` },
                 ]}
-                data={costData.map(d => ({ name: d.name, value: d.value, pct: d.value })) as any}
+                data={costData.map(d => ({ name: d.name, value: d.value, pct: d.value }))}
                 className="text-sm"
               />
             </div>
